@@ -9,9 +9,9 @@ external action.
 | Agent | Current Task | Status | Current Focus | Last Update |
 | --- | --- | --- | --- | --- |
 | Mastermind | none | idle | Waiting for a product goal or task request | 2026-07-21 |
-| Designer | none | idle | Waiting for assignment | 2026-07-21 |
+| Designer | v1-brand-design | done | Brand system and Stitch prompt drafts ready for Mastermind review | 2026-07-21 23:16 |
 | Front-End Builder | none | idle | Waiting for assignment | 2026-07-21 |
-| Back-End Builder | none | idle | Waiting for assignment | 2026-07-21 |
+| Back-End Builder | v1-cms-backend | done | Donation URL removed from v1 CMS settings scope | 2026-07-21 23:32 |
 | QA Reviewer | none | idle | Waiting for assignment | 2026-07-21 |
 
 ## Status Values
