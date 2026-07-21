@@ -5,13 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProgramResource\Pages;
 use App\Models\Program;
 use BackedEnum;
-use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use UnitEnum;
 
-class ProgramResource extends Resource
+class ProgramResource extends CmsResource
 {
     protected static ?string $model = Program::class;
 

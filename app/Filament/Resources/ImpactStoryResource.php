@@ -5,13 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ImpactStoryResource\Pages;
 use App\Models\ImpactStory;
 use BackedEnum;
-use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use UnitEnum;
 
-class ImpactStoryResource extends Resource
+class ImpactStoryResource extends CmsResource
 {
     protected static ?string $model = ImpactStory::class;
 

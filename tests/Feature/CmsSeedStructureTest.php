@@ -43,13 +43,16 @@ class CmsSeedStructureTest extends TestCase
         $this->assertSame('info@gilwellsyria.local', $settings->contact_email);
         $this->assertSame('partnerships@gilwellsyria.local', $settings->partnership_email);
 
-        foreach (['home', 'about', 'programs'] as $slug) {
+        foreach (['home', 'about', 'programs', 'impact', 'partners', 'gallery', 'news', 'events', 'contact'] as $slug) {
             $page = Page::query()->where('slug', $slug)->firstOrFail();
 
             $this->assertNotEmpty($page->title_en);
             $this->assertNotEmpty($page->title_ar);
+            $this->assertNotEmpty($page->summary_en);
+            $this->assertNotEmpty($page->summary_ar);
             $this->assertNotEmpty($page->body_en);
             $this->assertNotEmpty($page->body_ar);
+            $this->assertTrue($page->isPublished());
         }
 
         $this->assertGreaterThanOrEqual(1, Program::query()->count());

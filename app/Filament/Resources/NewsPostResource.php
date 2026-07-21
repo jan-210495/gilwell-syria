@@ -5,13 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\NewsPostResource\Pages;
 use App\Models\NewsPost;
 use BackedEnum;
-use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use UnitEnum;
 
-class NewsPostResource extends Resource
+class NewsPostResource extends CmsResource
 {
     protected static ?string $model = NewsPost::class;
 

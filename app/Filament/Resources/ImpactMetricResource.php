@@ -7,7 +7,6 @@ use App\Models\ImpactMetric;
 use BackedEnum;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
-use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -15,7 +14,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use UnitEnum;
 
-class ImpactMetricResource extends Resource
+class ImpactMetricResource extends CmsResource
 {
     protected static ?string $model = ImpactMetric::class;
 

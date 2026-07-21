@@ -4,17 +4,17 @@ namespace App\Models\Concerns;
 
 use App\Enums\PublishStatus;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 trait HasPublicationWorkflow
 {
     public static function bootHasPublicationWorkflow(): void
     {
-        static::creating(function (Model $model): void {
-            if ($model->status === null) {
-                $model->status = PublishStatus::Draft;
-            }
+        static::saving(function (Model $model): void {
+            $model->normalizePublicationStateForSave();
         });
     }
 
@@ -112,5 +112,69 @@ trait HasPublicationWorkflow
         $this->published_at = null;
 
         return $this->save();
+    }
+
+    private function normalizePublicationStateForSave(): void
+    {
+        if ($this->status === null) {
+            $this->status = PublishStatus::Draft;
+        }
+
+        $this->authorizeCurrentUserCanSavePublicationStatus();
+
+        if ($this->publicationStatus() === PublishStatus::Published && $this->published_at === null) {
+            $this->published_at = now();
+        }
+
+        if ($this->publicationStatus() === PublishStatus::Draft) {
+            $this->published_at = null;
+        }
+    }
+
+    private function authorizeCurrentUserCanSavePublicationStatus(): void
+    {
+        $user = Auth::user();
+
+        if (! $user instanceof User || $user->isAdmin()) {
+            return;
+        }
+
+        $status = $this->publicationStatus();
+
+        if (in_array($status, [PublishStatus::Published, PublishStatus::Archived], true)) {
+            throw new AuthorizationException('Editors may only save draft or pending review CMS content.');
+        }
+
+        if ($this->exists && $this->originalPublicationStatus() !== PublishStatus::Draft) {
+            throw new AuthorizationException('Editors may only update draft CMS content.');
+        }
+    }
+
+    private function publicationStatus(): ?PublishStatus
+    {
+        if ($this->status instanceof PublishStatus) {
+            return $this->status;
+        }
+
+        if (is_string($this->status)) {
+            return PublishStatus::tryFrom($this->status);
+        }
+
+        return null;
+    }
+
+    private function originalPublicationStatus(): ?PublishStatus
+    {
+        $status = $this->getOriginal('status');
+
+        if ($status instanceof PublishStatus) {
+            return $status;
+        }
+
+        if (is_string($status)) {
+            return PublishStatus::tryFrom($status);
+        }
+
+        return null;
     }
 }

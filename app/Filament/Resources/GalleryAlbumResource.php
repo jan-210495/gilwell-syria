@@ -7,14 +7,13 @@ use App\Models\GalleryAlbum;
 use BackedEnum;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
-use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use UnitEnum;
 
-class GalleryAlbumResource extends Resource
+class GalleryAlbumResource extends CmsResource
 {
     protected static ?string $model = GalleryAlbum::class;
 
