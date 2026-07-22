@@ -48,6 +48,19 @@ class PublicVisualCssTest extends TestCase
         $this->assertGridColumns($mobile, self::LISTING_GRIDS, 1);
     }
 
+    public function test_desktop_home_framing_reveals_credibility_content_below_the_hero(): void
+    {
+        $css = $this->normalizedCss();
+
+        $hero = $this->block($css, '.home-hero--editorial');
+        $this->assertStringContainsString('min-block-size: min(74svh, 760px);', $hero);
+        $this->assertStringNotContainsString('min-block-size: min(82svh, 820px);', $hero);
+
+        $credibilityStrip = $this->block($css, '.credibility-strip');
+        $this->assertStringContainsString('padding-block: clamp(24px, 4vw, 48px);', $credibilityStrip);
+        $this->assertStringNotContainsString('padding-block: clamp(32px, 5vw, 64px);', $credibilityStrip);
+    }
+
     private function assertGridColumns(string $css, string $selector, int $columns): void
     {
         $this->assertStringContainsString(

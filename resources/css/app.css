@@ -245,7 +245,7 @@
         isolation: isolate;
         display: grid;
         align-items: end;
-        min-block-size: min(82svh, 820px);
+        min-block-size: min(74svh, 760px);
         width: 100%;
         margin-inline: auto;
         padding-block: clamp(92px, 12vh, 164px) clamp(56px, 8vh, 96px);
@@ -420,7 +420,7 @@
     .credibility-strip {
         width: min(100% - (var(--layout-gutter) * 2), var(--layout-wide));
         margin-inline: auto;
-        padding-block: clamp(32px, 5vw, 64px);
+        padding-block: clamp(24px, 4vw, 48px);
     }
 
     .credibility-strip .section__header {
