@@ -8,6 +8,21 @@ Record decisions that affect product behavior, design direction, API contracts, 
 YYYY-MM-DD | Decision ID | Owner | Scope | Decision | Rationale | Rejected Options | Impact
 ```
 
+## Final Verification Evidence
+
+2026-07-22 20:31: after the recorded completion/review of Tasks 1-4, final
+verification passed: `scripts/dev-php artisan test` 55 tests/594 assertions;
+`npm run build` with only the optional `fontaine` warning; route cache and clear;
+fresh seed with the local admin/editor users and `leadership-training`; `/` 302
+to `/en`, `/en` and `/ar` required hooks with no public donation/form matches,
+`/fr` 404, and `/admin/login` fields. Screenshot evidence is
+`/tmp/gilwell-identity-en-1440.png` (1440x900),
+`/tmp/gilwell-identity-en-1920.png` (1920x1080),
+`/tmp/gilwell-identity-en-390.png` (390x844), and
+`/tmp/gilwell-identity-ar-390.png` (390x844). Forbidden-pattern matches remain
+limited to negative tests, historical ledgers, or rejecting docs; no public
+mobile `overflow-x: auto`; `git diff --check` passed.
+
 ## Accepted Decisions
 
 ```text
