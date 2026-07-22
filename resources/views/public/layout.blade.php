@@ -24,6 +24,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>@hasSection('title')@yield('title') | {{ $siteName }}@else{{ $siteName }}@endif</title>
         <meta name="description" content="@yield('description', $tagline ?: $siteName)">
+        @yield('preload')
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="public-site">

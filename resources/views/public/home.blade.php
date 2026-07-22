@@ -5,15 +5,19 @@
     $heroSummary = $field($settings, 'tagline', $field($page, 'summary'));
     $heroBody = $field($page, 'body');
     $heroImage = asset('images/gilwellsyria-hero-training.png');
+    $heroImageWebp = asset('images/gilwellsyria-hero-training.webp');
 @endphp
 
 @extends('public.layout')
 
 @section('title', $title)
 @section('description', $field($page, 'seo_description', $heroSummary))
+@section('preload')
+    <link rel="preload" as="image" href="{{ $heroImageWebp }}" type="image/webp" fetchpriority="high">
+@endsection
 
 @section('content')
-    <section class="home-hero home-hero--editorial" style="--hero-image: url('{{ $heroImage }}')">
+    <section class="home-hero home-hero--editorial" style="--hero-image-fallback: url('{{ $heroImage }}'); --hero-image: image-set(url('{{ $heroImageWebp }}') type('image/webp'), url('{{ $heroImage }}') type('image/png'))">
         <div class="home-hero__inner">
             <div class="home-hero__content">
                 <p class="eyebrow">{{ $labels['home'] }}</p>

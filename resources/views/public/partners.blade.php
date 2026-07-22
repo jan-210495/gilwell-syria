@@ -31,6 +31,7 @@
                         'external' => true,
                         'label' => $labels['partners'],
                         'imagePath' => $partner->logo_path,
+                        'cardClass' => 'content-card--partner',
                         'actionLabel' => $partner->website_url ? $labels['visit_partner'] : null,
                     ])
                 @endforeach

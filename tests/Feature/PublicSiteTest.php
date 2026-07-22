@@ -72,6 +72,24 @@ class PublicSiteTest extends TestCase
             ->assertDontSee('<h1>الرئيسية</h1>', false);
     }
 
+    public function test_home_preloads_and_serves_optimized_hero_with_png_fallback(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $optimizedHero = public_path('images/gilwellsyria-hero-training.webp');
+        $sourceHero = public_path('images/gilwellsyria-hero-training.png');
+
+        $this->assertFileExists($optimizedHero);
+        $this->assertLessThan(filesize($sourceHero), filesize($optimizedHero));
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('<link rel="preload" as="image"', false)
+            ->assertSee('gilwellsyria-hero-training.webp')
+            ->assertSee('image-set(', false)
+            ->assertSee('gilwellsyria-hero-training.png');
+    }
+
     public function test_core_pages_render_published_cms_records_and_hide_drafts(): void
     {
         $this->createMainSettings();
@@ -215,7 +233,8 @@ class PublicSiteTest extends TestCase
 
         $this->get('/en/partners')
             ->assertOk()
-            ->assertSee('class="logo-grid logo-grid--wide"', false);
+            ->assertSee('class="logo-grid logo-grid--wide"', false)
+            ->assertSee('class="content-card content-card--partner"', false);
 
         $this->get('/en/contact')
             ->assertOk()

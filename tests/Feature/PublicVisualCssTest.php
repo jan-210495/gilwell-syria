@@ -61,6 +61,56 @@ class PublicVisualCssTest extends TestCase
         $this->assertStringNotContainsString('padding-block: clamp(32px, 5vw, 64px);', $credibilityStrip);
     }
 
+    public function test_content_feed_uses_desktop_split_and_responsive_single_column_layout(): void
+    {
+        $css = $this->normalizedCss();
+
+        $contentFeed = $this->block($css, '.section--content-feed');
+        $this->assertStringContainsString('display: grid;', $contentFeed);
+        $this->assertStringContainsString('grid-template-columns: repeat(2, minmax(0, 1fr));', $contentFeed);
+
+        $tablet = $this->block($css, '@media (max-width: 1100px)');
+        $this->assertStringContainsString(
+            'grid-template-columns: 1fr;',
+            $this->block($tablet, '.section--content-feed'),
+        );
+    }
+
+    public function test_mobile_header_uses_compact_non_sticky_layout(): void
+    {
+        $css = $this->normalizedCss();
+        $mobile = $this->block($css, '@media (max-width: 820px)');
+
+        $header = $this->block($mobile, '.site-header');
+        $this->assertStringContainsString('position: static;', $header);
+
+        $inner = $this->block($mobile, '.site-header__inner');
+        $this->assertStringContainsString('grid-template-columns: minmax(0, 1fr) auto;', $inner);
+
+        $nav = $this->block($mobile, '.site-nav');
+        $this->assertStringContainsString('grid-column: 1 / -1;', $nav);
+        $this->assertStringContainsString('flex-wrap: nowrap;', $nav);
+        $this->assertStringContainsString('overflow-x: auto;', $nav);
+
+        $actions = $this->block($mobile, '.site-header__actions');
+        $this->assertStringContainsString('grid-column: 2;', $actions);
+        $this->assertStringContainsString('grid-row: 1;', $actions);
+    }
+
+    public function test_partner_logo_media_uses_contain_without_changing_content_card_cropping(): void
+    {
+        $css = $this->normalizedCss();
+
+        $this->assertStringContainsString('object-fit: cover;', $this->block($css, '.media-frame__image'));
+
+        $partnerFrame = $this->block($css, '.content-card--partner .media-frame');
+        $this->assertStringContainsString('aspect-ratio: 4 / 3;', $partnerFrame);
+        $this->assertStringContainsString('padding: clamp(16px, 2vw, 24px);', $partnerFrame);
+
+        $partnerImage = $this->block($css, '.content-card--partner .media-frame__image');
+        $this->assertStringContainsString('object-fit: contain;', $partnerImage);
+    }
+
     private function assertGridColumns(string $css, string $selector, int $columns): void
     {
         $this->assertStringContainsString(

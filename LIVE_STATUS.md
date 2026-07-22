@@ -14,6 +14,7 @@ external action.
 | Back-End Builder | v1-cms-backend | done | QA backend authorization, publish normalization, and seed refinements ready for review | 2026-07-22 00:09 |
 | QA Reviewer | task-5-final-visual-verification-and-acceptance | done | Final checks passed after focused desktop framing fix | 2026-07-22 13:14 |
 | Visual Fix Worker | task-5-visual-framing-fix | done | CSS framing fix committed after red-green, build, and visual recapture | 2026-07-22 12:30 |
+| Final Review Fix Worker | final-review-visual-fixes | done | Four final-review findings fixed; full tests, build, scans, and visual smoke passed | 2026-07-22 13:44 |
 
 ## Status Values
 
