@@ -191,6 +191,37 @@ class PublicSiteTest extends TestCase
         $this->get('/en/events')->assertOk()->assertSee('No published events or trainings yet.');
     }
 
+    public function test_listing_and_contact_pages_use_visual_reset_hooks(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en/programs')
+            ->assertOk()
+            ->assertSee('class="section section--listing"', false)
+            ->assertSee('class="card-grid card-grid--featured"', false)
+            ->assertSee('class="page-hero page-hero--substantial"', false);
+
+        $this->get('/en/gallery')
+            ->assertOk()
+            ->assertSee('class="card-grid card-grid--compact"', false);
+
+        $this->get('/en/news')
+            ->assertOk()
+            ->assertSee('class="card-grid card-grid--compact"', false);
+
+        $this->get('/en/events')
+            ->assertOk()
+            ->assertSee('class="card-grid card-grid--compact"', false);
+
+        $this->get('/en/partners')
+            ->assertOk()
+            ->assertSee('class="logo-grid logo-grid--wide"', false);
+
+        $this->get('/en/contact')
+            ->assertOk()
+            ->assertSee('class="contact-grid contact-grid--wide"', false);
+    }
+
     public function test_contact_page_shows_details_only_without_forms_or_donation_language(): void
     {
         $this->createMainSettings([

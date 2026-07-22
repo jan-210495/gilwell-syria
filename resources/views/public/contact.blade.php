@@ -16,7 +16,7 @@
 @section('description', $field($page, 'seo_description', $summary))
 
 @section('content')
-    <section class="section">
+    <section class="section section--contact">
         @include('public.partials.page-hero', [
             'eyebrow' => $labels['contact_details'],
             'title' => $pageTitle,
@@ -25,7 +25,7 @@
 
         @include('public.partials.body', ['body' => $field($page, 'body')])
 
-        <div class="contact-grid">
+        <div class="contact-grid contact-grid--wide">
             @if ($settings?->contact_email)
                 <section class="contact-block">
                     <p class="eyebrow">{{ $labels['email'] }}</p>
