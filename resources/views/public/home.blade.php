@@ -4,8 +4,53 @@
     $heroTitle = $siteName;
     $heroSummary = $field($settings, 'tagline', $field($page, 'summary'));
     $heroBody = $field($page, 'body');
-    $heroImage = asset('images/gilwellsyria-hero-training.png');
-    $heroImageWebp = asset('images/gilwellsyria-hero-training.webp');
+    $heroCorners = [
+        [
+            'key' => 'merit',
+            'number' => '01',
+            'color' => '#6B0F68',
+            'label_en' => 'Merit',
+            'label_ar' => 'الاستحقاق',
+            'copy_en' => 'Earned growth through skill, service, and recognition.',
+            'copy_ar' => 'نمو مستحق عبر المهارة والخدمة والتقدير.',
+        ],
+        [
+            'key' => 'discipline',
+            'number' => '02',
+            'color' => '#2E5A2A',
+            'label_en' => 'Discipline',
+            'label_ar' => 'الانضباط',
+            'copy_en' => 'Focused training, structure, and reliable practice.',
+            'copy_ar' => 'تدريب مركز ونظام وممارسة موثوقة.',
+        ],
+        [
+            'key' => 'honor',
+            'number' => '03',
+            'color' => '#E0AB00',
+            'label_en' => 'Honor',
+            'label_ar' => 'الشرف',
+            'copy_en' => 'Dignified service and responsibility to others.',
+            'copy_ar' => 'خدمة كريمة ومسؤولية تجاه الآخرين.',
+        ],
+        [
+            'key' => 'tenacity',
+            'number' => '04',
+            'color' => '#0B3570',
+            'label_en' => 'Tenacity',
+            'label_ar' => 'المثابرة',
+            'copy_en' => 'Perseverance through challenge and teamwork.',
+            'copy_ar' => 'ثبات أمام التحدي بروح الفريق.',
+        ],
+        [
+            'key' => 'loyalty',
+            'number' => '05',
+            'color' => '#B3121B',
+            'label_en' => 'Loyalty',
+            'label_ar' => 'الولاء',
+            'copy_en' => 'Belonging, trust, and shared commitment.',
+            'copy_ar' => 'انتماء وثقة والتزام مشترك.',
+        ],
+    ];
 @endphp
 
 @extends('public.layout')
@@ -13,15 +58,29 @@
 @section('title', $title)
 @section('description', $field($page, 'seo_description', $heroSummary))
 @section('preload')
-    <link rel="preload" as="image" href="{{ $heroImageWebp }}" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('images/hero-corners/optimized/merit.webp') }}" type="image/webp" fetchpriority="high">
 @endsection
 
 @section('content')
-    <section class="home-hero home-hero--editorial" style="--hero-image-fallback: url('{{ $heroImage }}'); --hero-image: image-set(url('{{ $heroImageWebp }}') type('image/webp'), url('{{ $heroImage }}') type('image/png'))">
+    <section class="home-hero home-hero--corners" aria-labelledby="home-hero-title">
+        <div class="hero-corners__backdrop" aria-hidden="true">
+            <ul class="hero-corners__panels" aria-label="{{ $locale === 'ar' ? 'زوايا جيلويل الخمس' : 'Five corners of Gilwell' }}">
+                @foreach ($heroCorners as $corner)
+                    @php
+                        $cornerLabel = $locale === 'ar' ? $corner['label_ar'] : $corner['label_en'];
+                        $cornerCopy = $locale === 'ar' ? $corner['copy_ar'] : $corner['copy_en'];
+                        $cornerSource = asset("images/hero-corners/{$corner['key']}.png");
+                        $cornerOptimized = asset("images/hero-corners/optimized/{$corner['key']}.webp");
+                    @endphp
+                    <li class="hero-corner-panel hero-corner-panel--{{ $corner['key'] }}" data-hero-corner="{{ $corner['key'] }}" style="--corner-color: {{ $corner['color'] }}; --corner-image-fallback: url('{{ $cornerSource }}'); --corner-image: image-set(url('{{ $cornerOptimized }}') type('image/webp'), url('{{ $cornerSource }}') type('image/png'));"><button class="hero-corner-panel__button" type="button" aria-label="{{ $cornerLabel }} - {{ $cornerCopy }}"><span class="hero-corner-panel__number">{{ $corner['number'] }}</span><span class="hero-corner-panel__value"><strong>{{ $cornerLabel }}</strong><span>{{ $cornerCopy }}</span></span></button></li>
+                @endforeach
+            </ul>
+        </div>
+
         <div class="home-hero__inner">
-            <div class="home-hero__content">
+            <div class="home-hero__content" data-reveal>
                 <p class="eyebrow">{{ $labels['home'] }}</p>
-                <h1>{{ $heroTitle }}</h1>
+                <h1 id="home-hero-title">{{ $heroTitle }}</h1>
                 @if ($heroSummary !== '')
                     <p class="lead">{{ $heroSummary }}</p>
                 @endif

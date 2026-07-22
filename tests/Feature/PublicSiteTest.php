@@ -50,44 +50,56 @@ class PublicSiteTest extends TestCase
             ->assertSee('الشباب المستفيدون');
     }
 
-    public function test_home_uses_visual_reset_hero_and_wide_section_hooks(): void
+    public function test_home_uses_five_corner_identity_hero_and_wide_section_hooks(): void
     {
         $this->seed(DatabaseSeeder::class);
 
         $this->get('/en')
             ->assertOk()
-            ->assertSee('class="home-hero home-hero--editorial"', false)
-            ->assertSee('images/gilwellsyria-hero-training.png')
-            ->assertSee('<h1>GilwellSyria</h1>', false)
+            ->assertSee('class="home-hero home-hero--corners"', false)
+            ->assertSee('class="hero-corners__panels"', false)
+            ->assertSee('<h1 id="home-hero-title">GilwellSyria</h1>', false)
             ->assertDontSee('<h1>Home</h1>', false)
             ->assertSee('class="credibility-strip"', false)
             ->assertSee('class="section section--program-feature"', false)
             ->assertSee('class="section section--partner-wall"', false)
             ->assertSee('class="section section--content-feed"', false);
 
+        foreach (['merit', 'discipline', 'honor', 'tenacity', 'loyalty'] as $corner) {
+            $this->get('/en')
+                ->assertOk()
+                ->assertSee("data-hero-corner=\"{$corner}\"", false)
+                ->assertSee("images/hero-corners/optimized/{$corner}.webp")
+                ->assertSee("images/hero-corners/{$corner}.png");
+        }
+
         $this->get('/ar')
             ->assertOk()
-            ->assertSee('class="home-hero home-hero--editorial"', false)
-            ->assertSee('<h1>جيلويل سوريا</h1>', false)
-            ->assertDontSee('<h1>الرئيسية</h1>', false);
+            ->assertSee('class="home-hero home-hero--corners"', false)
+            ->assertSee('<h1 id="home-hero-title">جيلويل سوريا</h1>', false)
+            ->assertDontSee('<h1>الرئيسية</h1>', false)
+            ->assertSee('data-hero-corner="merit"', false);
     }
 
-    public function test_home_preloads_and_serves_optimized_hero_with_png_fallback(): void
+    public function test_home_preloads_and_serves_optimized_corner_hero_assets(): void
     {
         $this->seed(DatabaseSeeder::class);
 
-        $optimizedHero = public_path('images/gilwellsyria-hero-training.webp');
-        $sourceHero = public_path('images/gilwellsyria-hero-training.png');
+        foreach (['merit', 'discipline', 'honor', 'tenacity', 'loyalty'] as $corner) {
+            $optimizedHero = public_path("images/hero-corners/optimized/{$corner}.webp");
+            $sourceHero = public_path("images/hero-corners/{$corner}.png");
 
-        $this->assertFileExists($optimizedHero);
-        $this->assertLessThan(filesize($sourceHero), filesize($optimizedHero));
+            $this->assertFileExists($optimizedHero);
+            $this->assertLessThan(filesize($sourceHero), filesize($optimizedHero));
+        }
 
         $this->get('/en')
             ->assertOk()
             ->assertSee('<link rel="preload" as="image"', false)
-            ->assertSee('gilwellsyria-hero-training.webp')
+            ->assertSee('images/hero-corners/optimized/merit.webp')
             ->assertSee('image-set(', false)
-            ->assertSee('gilwellsyria-hero-training.png');
+            ->assertSee('images/hero-corners/merit.png')
+            ->assertDontSee('gilwellsyria-hero-training.webp');
     }
 
     public function test_public_header_uses_transparent_brand_and_accessible_burger_menu(): void

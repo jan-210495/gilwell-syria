@@ -23,7 +23,7 @@ class PublicVisualCssTest extends TestCase
             $this->assertStringContainsString(self::WIDE_CONTAINER, $this->block($css, $selector), $selector);
         }
 
-        $this->assertStringContainsString('background-image: var(--hero-image);', $this->block($css, '.home-hero--editorial'));
+        $this->assertStringContainsString('background-image: var(--corner-image);', $this->block($css, '.hero-corner-panel'));
         $this->assertStringContainsString('.logo-grid--wide', $css);
         $this->assertStringNotContainsString('linear-gradient', $css);
     }
@@ -48,17 +48,47 @@ class PublicVisualCssTest extends TestCase
         $this->assertGridColumns($mobile, self::LISTING_GRIDS, 1);
     }
 
-    public function test_desktop_home_framing_reveals_credibility_content_below_the_hero(): void
+    public function test_desktop_home_framing_uses_cinematic_hero_and_credibility_spacing(): void
     {
         $css = $this->normalizedCss();
 
-        $hero = $this->block($css, '.home-hero--editorial');
-        $this->assertStringContainsString('min-block-size: min(74svh, 760px);', $hero);
-        $this->assertStringNotContainsString('min-block-size: min(82svh, 820px);', $hero);
+        $hero = $this->block($css, '.home-hero--corners');
+        $this->assertStringContainsString('min-block-size: 100svh;', $hero);
 
         $credibilityStrip = $this->block($css, '.credibility-strip');
         $this->assertStringContainsString('padding-block: clamp(24px, 4vw, 48px);', $credibilityStrip);
         $this->assertStringNotContainsString('padding-block: clamp(32px, 5vw, 64px);', $credibilityStrip);
+    }
+
+    public function test_five_corner_hero_has_interactive_panel_contract(): void
+    {
+        $css = $this->normalizedCss();
+
+        $hero = $this->block($css, '.home-hero--corners');
+        $this->assertStringContainsString('min-block-size: 100svh;', $hero);
+        $this->assertStringContainsString('background: var(--color-pine-900);', $hero);
+
+        $panels = $this->block($css, '.hero-corners__panels');
+        $this->assertStringContainsString('display: flex;', $panels);
+
+        $panel = $this->block($css, '.hero-corner-panel');
+        $this->assertStringContainsString('flex: 1 1 0;', $panel);
+        $this->assertStringContainsString('background-image: var(--corner-image-fallback);', $panel);
+        $this->assertStringContainsString('background-image: var(--corner-image);', $panel);
+
+        $active = $this->block($css, '.hero-corner-panel:hover, .hero-corner-panel:focus-within');
+        $this->assertStringContainsString('flex-grow: 2.35;', $active);
+
+        $value = $this->block($css, '.hero-corner-panel__value');
+        $this->assertStringContainsString('opacity: 0;', $value);
+
+        $activeValue = $this->block($css, '.hero-corner-panel:hover .hero-corner-panel__value, .hero-corner-panel:focus-within .hero-corner-panel__value');
+        $this->assertStringContainsString('opacity: 1;', $activeValue);
+
+        $mobile = $this->block($css, '@media (max-width: 820px)');
+        $mobilePanels = $this->block($mobile, '.hero-corners__panels');
+        $this->assertStringContainsString('display: grid;', $mobilePanels);
+        $this->assertStringContainsString('grid-template-columns: 1fr;', $mobilePanels);
     }
 
     public function test_content_feed_uses_desktop_split_and_responsive_single_column_layout(): void
