@@ -9,6 +9,21 @@ These prompts are candidates for Mastermind review. Only the Mastermind may
 decide whether to deliver a final prompt to the Human Operator or request an
 external Google Stitch run.
 
+## Identity Motion Revision Prompt
+
+Create a premium bilingual GilwellSyria homepage inspired by a cinematic
+five-corner identity system, not a government website. The hero should use five
+vertical realistic scout photography panels for Merit, Discipline, Honor,
+Tenacity, and Loyalty. Default state is quiet and image-led; hover/focus makes a
+panel expand and reveal the value name, short meaning, and color accent.
+
+Use a transparent-feeling logo treatment derived from the approved mark, a
+strong editorial GilwellSyria wordmark, tactile hover/press button states,
+animated nav underline states, cards that lift subtly on hover, and scroll
+reveal motion. Mobile uses a burger menu with stacked links, never a horizontal
+scrolling navbar. Preserve English LTR and Arabic RTL quality. No donation UI
+and no public contact form.
+
 ## Recommended Visual Reset Prompt
 
 Create a premium bilingual public homepage for GilwellSyria, a youth leadership

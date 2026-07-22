@@ -12,7 +12,7 @@ external action.
 | Designer | task-1-hero-asset-and-design-guidance | done | Review fixes committed for exact visual reset layout constraints | 2026-07-22 10:53 |
 | Front-End Builder | task-4-listing-pages-shared-partials-and-contact-polish | done | Task 4 markup hooks committed; public visual regression suite passed | 2026-07-22 11:47 |
 | Back-End Builder | v1-cms-backend | done | QA backend authorization, publish normalization, and seed refinements ready for review | 2026-07-22 00:09 |
-| QA Reviewer | task-5-final-visual-verification-and-acceptance | done | Final checks passed after focused desktop framing fix | 2026-07-22 13:14 |
+| QA Reviewer | task-5-durable-documentation-and-final-verification | done | Final acceptance verification, evidence capture, and durable documentation complete | 2026-07-22 20:14 |
 | Visual Fix Worker | task-5-visual-framing-fix | done | CSS framing fix committed after red-green, build, and visual recapture | 2026-07-22 12:30 |
 | Final Review Fix Worker | final-review-visual-fixes | done | Four final-review findings fixed; full tests, build, scans, and visual smoke passed | 2026-07-22 13:44 |
 | Asset Pipeline Worker | task-1-asset-pipeline | reviewing | Source PNGs committed to scope, optimized WebP derivatives and transparent logo generated, asset test green | 2026-07-22 19:25 |

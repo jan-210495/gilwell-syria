@@ -297,3 +297,22 @@ logo wall, and scan-friendly news, gallery, and event modules.
 
 Keep v1 contact-only: no public contact form, no donation UI, and no donation
 language.
+
+## Identity Motion Addendum
+
+The accepted second visual revision uses a five-corner cinematic hero built
+from realistic scout-panel photography: Merit, Discipline, Honor, Tenacity, and
+Loyalty. The default hero state should be quiet and image-led; value labels and
+meanings become prominent on hover and keyboard focus.
+
+The public header should feel integrated with the hero, not like a government
+navigation bar. Use a transparent brand-mark treatment derived from the
+approved logo, animated nav underline states, and a paper/backdrop state after
+scroll.
+
+Mobile navigation must use an accessible burger menu with a stacked panel. Do
+not use horizontal scrolling nav for the primary mobile menu.
+
+Buttons, cards, metrics, partner tiles, and hero panels need visible hover,
+focus, and press feedback. Keep motion restrained, respect
+`prefers-reduced-motion`, and avoid decorative orb/blob background systems.
