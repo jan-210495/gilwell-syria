@@ -10,7 +10,7 @@ external action.
 | --- | --- | --- | --- | --- |
 | Mastermind | v1-public-visual-reset | reviewing | Implementation plan ready; waiting for execution approach selection | 2026-07-22 10:31 |
 | Designer | task-1-hero-asset-and-design-guidance | done | Review fixes committed for exact visual reset layout constraints | 2026-07-22 10:53 |
-| Front-End Builder | task-2-home-hero-markup-and-public-regression-tests | done | Home hero markup and public regression coverage are ready for Mastermind review | 2026-07-22 10:58 |
+| Front-End Builder | task-3-wide-css-layout-system-and-card-polish | done | Wide CSS layout system and card polish are ready for Mastermind review | 2026-07-22 11:16 |
 | Back-End Builder | v1-cms-backend | done | QA backend authorization, publish normalization, and seed refinements ready for review | 2026-07-22 00:09 |
 | QA Reviewer | v1-site-foundation | done | Follow-up QA confirmed prior blockers fixed with no new blocking regressions | 2026-07-22 00:18 |
 
