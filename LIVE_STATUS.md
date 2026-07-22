@@ -16,6 +16,7 @@ external action.
 | Visual Fix Worker | task-5-visual-framing-fix | done | CSS framing fix committed after red-green, build, and visual recapture | 2026-07-22 12:30 |
 | Final Review Fix Worker | final-review-visual-fixes | done | Four final-review findings fixed; full tests, build, scans, and visual smoke passed | 2026-07-22 13:44 |
 | Asset Pipeline Worker | task-1-asset-pipeline | reviewing | Source PNGs committed to scope, optimized WebP derivatives and transparent logo generated, asset test green | 2026-07-22 19:25 |
+| Front-End Builder | task-2-transparent-header-and-accessible-burger-menu | done | Fixed transparent header and accessible burger panel verified; ready for Mastermind review | 2026-07-22 19:36 |
 
 ## Status Values
 

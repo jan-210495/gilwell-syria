@@ -90,6 +90,31 @@ class PublicSiteTest extends TestCase
             ->assertSee('gilwellsyria-hero-training.png');
     }
 
+    public function test_public_header_uses_transparent_brand_and_accessible_burger_menu(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('data-site-header', false)
+            ->assertSee('gilwellsyria-logo-transparent.png')
+            ->assertSee('class="brand__logo brand__logo--transparent"', false)
+            ->assertSee('class="menu-toggle"', false)
+            ->assertSee('type="button"', false)
+            ->assertSee('aria-expanded="false"', false)
+            ->assertSee('aria-controls="site-menu-panel"', false)
+            ->assertSee('data-menu-toggle', false)
+            ->assertSee('id="site-menu-panel"', false)
+            ->assertSee('data-menu-panel', false)
+            ->assertSee('data-menu-close', false);
+
+        $this->get('/ar')
+            ->assertOk()
+            ->assertSee('data-site-header', false)
+            ->assertSee('aria-controls="site-menu-panel"', false)
+            ->assertSee('جيلويل سوريا');
+    }
+
     public function test_core_pages_render_published_cms_records_and_hide_drafts(): void
     {
         $this->createMainSettings();

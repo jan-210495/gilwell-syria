@@ -76,25 +76,53 @@ class PublicVisualCssTest extends TestCase
         );
     }
 
-    public function test_mobile_header_uses_compact_non_sticky_layout(): void
+    public function test_mobile_header_uses_compact_fixed_layout(): void
     {
         $css = $this->normalizedCss();
         $mobile = $this->block($css, '@media (max-width: 820px)');
 
         $header = $this->block($mobile, '.site-header');
-        $this->assertStringContainsString('position: static;', $header);
+        $this->assertStringContainsString('position: fixed;', $header);
 
         $inner = $this->block($mobile, '.site-header__inner');
-        $this->assertStringContainsString('grid-template-columns: minmax(0, 1fr) auto;', $inner);
+        $this->assertStringContainsString('grid-template-columns: minmax(0, 1fr) auto auto;', $inner);
 
         $nav = $this->block($mobile, '.site-nav');
-        $this->assertStringContainsString('grid-column: 1 / -1;', $nav);
-        $this->assertStringContainsString('flex-wrap: nowrap;', $nav);
-        $this->assertStringContainsString('overflow-x: auto;', $nav);
+        $this->assertStringContainsString('position: fixed;', $nav);
+        $this->assertStringContainsString('overflow-y: auto;', $nav);
 
         $actions = $this->block($mobile, '.site-header__actions');
-        $this->assertStringContainsString('grid-column: 2;', $actions);
+        $this->assertStringContainsString('grid-column: 3;', $actions);
         $this->assertStringContainsString('grid-row: 1;', $actions);
+    }
+
+    public function test_header_uses_overlay_brand_and_mobile_burger_panel(): void
+    {
+        $css = $this->normalizedCss();
+
+        $header = $this->block($css, '.site-header');
+        $this->assertStringContainsString('position: fixed;', $header);
+        $this->assertStringContainsString('transition:', $header);
+
+        $brandLogo = $this->block($css, '.brand__logo--transparent');
+        $this->assertStringContainsString('background: transparent;', $brandLogo);
+        $this->assertStringNotContainsString('border:', $brandLogo);
+
+        $menuToggle = $this->block($css, '.menu-toggle');
+        $this->assertStringContainsString('display: none;', $menuToggle);
+
+        $mobile = $this->block($css, '@media (max-width: 820px)');
+        $mobileToggle = $this->block($mobile, '.menu-toggle');
+        $this->assertStringContainsString('display: inline-flex;', $mobileToggle);
+
+        $mobileNav = $this->block($mobile, '.site-nav');
+        $this->assertStringContainsString('position: fixed;', $mobileNav);
+        $this->assertStringContainsString('overflow-y: auto;', $mobileNav);
+        $this->assertStringNotContainsString('overflow-x: auto;', $mobileNav);
+
+        $openNav = $this->block($mobile, '.site-header.is-menu-open .site-nav');
+        $this->assertStringContainsString('opacity: 1;', $openNav);
+        $this->assertStringContainsString('pointer-events: auto;', $openNav);
     }
 
     public function test_partner_logo_media_uses_contain_without_changing_content_card_cropping(): void

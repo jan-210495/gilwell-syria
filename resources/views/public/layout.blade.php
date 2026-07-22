@@ -30,10 +30,10 @@
     <body class="public-site">
         <a class="skip-link" href="#main-content">{{ $labels['skip'] }}</a>
 
-        <header class="site-header">
+        <header class="site-header" data-site-header>
             <div class="site-header__inner">
                 <a class="brand" href="{{ url("/{$locale}") }}" aria-label="{{ $siteName }}">
-                    <img class="brand__logo" src="{{ asset('images/gilwellsyria-logo.jpeg') }}" alt="{{ $siteName }}">
+                    <img class="brand__logo brand__logo--transparent" src="{{ asset('images/gilwellsyria-logo-transparent.png') }}" alt="{{ $siteName }}">
                     <span class="brand__text">
                         <strong>{{ $siteName }}</strong>
                         @if ($tagline !== '')
@@ -42,18 +42,24 @@
                     </span>
                 </a>
 
-                <nav class="site-nav" aria-label="{{ $labels['nav_label'] }}">
+                <button class="menu-toggle" type="button" aria-label="{{ $labels['nav_label'] }}" aria-expanded="false" aria-controls="site-menu-panel" data-menu-toggle>
+                    <span class="menu-toggle__line"></span>
+                    <span class="menu-toggle__line"></span>
+                    <span class="menu-toggle__line"></span>
+                </button>
+
+                <nav id="site-menu-panel" class="site-nav" aria-label="{{ $labels['nav_label'] }}" data-menu-panel>
                     @foreach ($navItems as $item)
                         @php($active = request()->is($item['match']))
-                        <a class="site-nav__link {{ $active ? 'is-active' : '' }}" href="{{ $item['href'] }}" @if ($active) aria-current="page" @endif>
+                        <a class="site-nav__link {{ $active ? 'is-active' : '' }}" href="{{ $item['href'] }}" data-menu-close @if ($active) aria-current="page" @endif>
                             {{ $item['label'] }}
                         </a>
                     @endforeach
                 </nav>
 
                 <div class="site-header__actions">
-                    <a class="language-switch" href="{{ $languageUrl }}" hreflang="{{ $otherLocale }}">{{ $languageLabel }}</a>
-                    <a class="button button--primary" href="{{ url("/{$locale}/contact") }}">{{ $labels['contact'] }}</a>
+                    <a class="language-switch" href="{{ $languageUrl }}" hreflang="{{ $otherLocale }}" data-menu-close>{{ $languageLabel }}</a>
+                    <a class="button button--primary" href="{{ url("/{$locale}/contact") }}" data-menu-close>{{ $labels['contact'] }}</a>
                 </div>
             </div>
         </header>
