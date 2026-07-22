@@ -406,6 +406,11 @@
         text-align: start;
     }
 
+    .hero-corner-panel__button:focus-visible {
+        outline: 3px solid var(--color-white);
+        outline-offset: -8px;
+    }
+
     .hero-corner-panel__number {
         position: absolute;
         inset-block-start: clamp(96px, 12vh, 150px);

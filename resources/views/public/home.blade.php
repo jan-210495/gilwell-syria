@@ -63,7 +63,7 @@
 
 @section('content')
     <section class="home-hero home-hero--corners" aria-labelledby="home-hero-title">
-        <div class="hero-corners__backdrop" aria-hidden="true">
+        <div class="hero-corners__backdrop">
             <ul class="hero-corners__panels" aria-label="{{ $locale === 'ar' ? 'زوايا جيلويل الخمس' : 'Five corners of Gilwell' }}">
                 @foreach ($heroCorners as $corner)
                     @php

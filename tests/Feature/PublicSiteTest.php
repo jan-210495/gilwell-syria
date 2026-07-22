@@ -102,6 +102,18 @@ class PublicSiteTest extends TestCase
             ->assertDontSee('gilwellsyria-hero-training.webp');
     }
 
+    public function test_five_corner_panels_are_exposed_to_assistive_technology(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('class="hero-corners__panels"', false)
+            ->assertDontSee('class="hero-corners__backdrop" aria-hidden="true"', false)
+            ->assertSee('class="hero-corner-panel__button"', false)
+            ->assertSee('aria-label="Merit - Earned growth through skill, service, and recognition."', false);
+    }
+
     public function test_public_header_uses_transparent_brand_and_accessible_burger_menu(): void
     {
         $this->seed(DatabaseSeeder::class);

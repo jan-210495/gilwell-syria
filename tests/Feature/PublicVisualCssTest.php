@@ -91,6 +91,14 @@ class PublicVisualCssTest extends TestCase
         $this->assertStringContainsString('grid-template-columns: 1fr;', $mobilePanels);
     }
 
+    public function test_five_corner_panel_buttons_have_visible_keyboard_focus(): void
+    {
+        $focusVisible = $this->block($this->normalizedCss(), '.hero-corner-panel__button:focus-visible');
+
+        $this->assertStringContainsString('outline: 3px solid var(--color-white);', $focusVisible);
+        $this->assertStringContainsString('outline-offset: -8px;', $focusVisible);
+    }
+
     public function test_content_feed_uses_desktop_split_and_responsive_single_column_layout(): void
     {
         $css = $this->normalizedCss();
