@@ -2,24 +2,30 @@ const siteHeader = document.querySelector('[data-site-header]');
 const menuToggle = document.querySelector('[data-menu-toggle]');
 const menuPanel = document.querySelector('[data-menu-panel]');
 const menuCloseTargets = document.querySelectorAll('[data-menu-close]');
+const mobileMenuQuery = window.matchMedia('(max-width: 820px)');
 
 function setMenuOpen(open) {
     if (!siteHeader || !menuToggle || !menuPanel) {
         return;
     }
 
-    siteHeader.classList.toggle('is-menu-open', open);
-    menuToggle.setAttribute('aria-expanded', String(open));
-    menuPanel.toggleAttribute('data-open', open);
-    menuPanel.hidden = !open;
-    menuPanel.inert = !open;
-    document.documentElement.classList.toggle('has-open-menu', open);
+    const isMobile = mobileMenuQuery.matches;
+    const shouldOpen = isMobile && open;
+
+    siteHeader.classList.toggle('is-menu-open', shouldOpen);
+    menuToggle.setAttribute('aria-expanded', String(shouldOpen));
+    menuPanel.toggleAttribute('data-open', shouldOpen);
+    menuPanel.hidden = isMobile && !shouldOpen;
+    menuPanel.inert = isMobile && !shouldOpen;
+    document.documentElement.classList.toggle('has-open-menu', shouldOpen);
 }
 
 if (siteHeader && menuToggle && menuPanel) {
     menuToggle.addEventListener('click', () => {
         setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
     });
+
+    mobileMenuQuery.addEventListener('change', () => setMenuOpen(false));
 
     menuCloseTargets.forEach((target) => {
         target.addEventListener('click', () => setMenuOpen(false));
@@ -35,6 +41,7 @@ if (siteHeader && menuToggle && menuPanel) {
         siteHeader.classList.toggle('is-scrolled', window.scrollY > 24);
     };
 
+    setMenuOpen(false);
     updateHeaderState();
     window.addEventListener('scroll', updateHeaderState, { passive: true });
 }
