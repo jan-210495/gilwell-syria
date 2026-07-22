@@ -94,6 +94,12 @@ class PublicVisualCssTest extends TestCase
         $actions = $this->block($mobile, '.site-header__actions');
         $this->assertStringContainsString('grid-column: 3;', $actions);
         $this->assertStringContainsString('grid-row: 1;', $actions);
+
+        $brand = $this->block($mobile, '.brand {');
+        $this->assertStringContainsString('min-inline-size: 0;', $brand);
+
+        $brandText = $this->block($mobile, '.brand__text');
+        $this->assertStringContainsString('display: none;', $brandText);
     }
 
     public function test_header_uses_overlay_brand_and_mobile_burger_panel(): void
@@ -123,6 +129,12 @@ class PublicVisualCssTest extends TestCase
         $openNav = $this->block($mobile, '.site-header.is-menu-open .site-nav');
         $this->assertStringContainsString('opacity: 1;', $openNav);
         $this->assertStringContainsString('pointer-events: auto;', $openNav);
+
+        $headerBrandText = $this->block($css, '.site-header .brand__text strong');
+        $this->assertStringContainsString('color: currentColor;', $headerBrandText);
+
+        $menuLock = $this->block($css, 'html.has-open-menu');
+        $this->assertStringContainsString('overflow: hidden;', $menuLock);
     }
 
     public function test_partner_logo_media_uses_contain_without_changing_content_card_cropping(): void

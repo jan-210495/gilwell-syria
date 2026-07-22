@@ -115,6 +115,21 @@ class PublicSiteTest extends TestCase
             ->assertSee('جيلويل سوريا');
     }
 
+    public function test_closed_burger_panel_is_hidden_and_inert(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('data-menu-panel hidden', false);
+
+        $script = file_get_contents(resource_path('js/app.js'));
+
+        $this->assertNotFalse($script);
+        $this->assertStringContainsString('menuPanel.hidden = !open;', $script);
+        $this->assertStringContainsString('menuPanel.inert = !open;', $script);
+    }
+
     public function test_core_pages_render_published_cms_records_and_hide_drafts(): void
     {
         $this->createMainSettings();

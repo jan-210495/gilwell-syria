@@ -48,7 +48,7 @@
                     <span class="menu-toggle__line"></span>
                 </button>
 
-                <nav id="site-menu-panel" class="site-nav" aria-label="{{ $labels['nav_label'] }}" data-menu-panel>
+                <nav id="site-menu-panel" class="site-nav" aria-label="{{ $labels['nav_label'] }}" data-menu-panel hidden>
                     @foreach ($navItems as $item)
                         @php($active = request()->is($item['match']))
                         <a class="site-nav__link {{ $active ? 'is-active' : '' }}" href="{{ $item['href'] }}" data-menu-close @if ($active) aria-current="page" @endif>

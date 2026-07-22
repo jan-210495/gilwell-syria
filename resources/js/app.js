@@ -11,6 +11,8 @@ function setMenuOpen(open) {
     siteHeader.classList.toggle('is-menu-open', open);
     menuToggle.setAttribute('aria-expanded', String(open));
     menuPanel.toggleAttribute('data-open', open);
+    menuPanel.hidden = !open;
+    menuPanel.inert = !open;
     document.documentElement.classList.toggle('has-open-menu', open);
 }
 
