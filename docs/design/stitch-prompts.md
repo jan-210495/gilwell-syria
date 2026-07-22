@@ -9,6 +9,23 @@ These prompts are candidates for Mastermind review. Only the Mastermind may
 decide whether to deliver a final prompt to the Human Operator or request an
 external Google Stitch run.
 
+## Recommended Visual Reset Prompt
+
+Create a premium bilingual public homepage for GilwellSyria, a youth leadership
+and community service nonprofit in Syria. Use a very-wide editorial layout with
+content expanding up to roughly 1680px on desktop. The first viewport must have
+a strong documentary-style hero image of youth leadership training in a Syrian
+or Levant community setting, with natural daylight, realistic nonprofit
+photography, no visible text, no logos, and no flags. Place the GilwellSyria
+logo only in the header and footer, not as the hero artwork.
+
+The hero headline should identify GilwellSyria directly, with clear CTAs for
+Contact us, Partner with us, and Explore programs. Build credibility through a
+wide impact metric strip, polished program cards, a calm partner logo wall, and
+dense but readable gallery/news/events modules. Use pine green, navy, warm paper,
+and disciplined gold accents. Support equal English LTR and Arabic RTL layouts.
+Do not include donation UI or a public contact form.
+
 ## Shared Prompt Context
 
 Attachment expected: `assets/gilwellsyria-logo.jpeg`.
