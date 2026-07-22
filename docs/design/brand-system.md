@@ -279,9 +279,11 @@ The v1 public site must meet WCAG AA.
 ## Visual Reset Addendum
 
 The accepted public visual reset uses a very-wide editorial layout for desktop.
-Use a main wide container around `1680px`, responsive gutters with
-`clamp(20px, 4vw, 72px)`, and denser grids that can reach five columns when
-card content remains readable.
+Use the main wide container constraint `min(100% - responsive gutters, 1680px)`
+with responsive gutters of `clamp(20px, 4vw, 72px)`. Keep reading content in a
+reading container about `760px` to `860px`. Use dense grids with 5 columns at
+very wide widths, 4 columns at normal desktop widths, 2 columns at tablet
+widths, and 1 column on mobile.
 
 The home hero must use a documentary-style youth leadership or community
 training image as the primary visual signal. The logo remains in the header and

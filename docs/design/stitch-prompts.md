@@ -12,12 +12,15 @@ external Google Stitch run.
 ## Recommended Visual Reset Prompt
 
 Create a premium bilingual public homepage for GilwellSyria, a youth leadership
-and community service nonprofit in Syria. Use a very-wide editorial layout with
-content expanding up to roughly 1680px on desktop. The first viewport must have
-a strong documentary-style hero image of youth leadership training in a Syrian
-or Levant community setting, with natural daylight, realistic nonprofit
-photography, no visible text, no logos, and no flags. Place the GilwellSyria
-logo only in the header and footer, not as the hero artwork.
+and community service nonprofit in Syria. Use the very-wide container constraint
+`min(100% - responsive gutters, 1680px)` with responsive gutters, and keep
+reading content in a reading container about `760px` to `860px`. Use dense grids
+with 5 columns at very wide widths, 4 columns at normal desktop widths, 2
+columns at tablet widths, and 1 column on mobile. The first viewport must have a
+strong documentary-style hero image of youth leadership training in a Syrian or
+Levant community setting, with natural daylight, realistic nonprofit photography,
+no visible text, no logos, and no flags. Place the GilwellSyria logo only in the
+header and footer, not as the hero artwork.
 
 The hero headline should identify GilwellSyria directly, with clear CTAs for
 Contact us, Partner with us, and Explore programs. Build credibility through a
