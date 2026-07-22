@@ -13,7 +13,7 @@
     }
 @endphp
 
-<article class="content-card {{ $cardClass }}">
+<article class="content-card {{ $cardClass }}" data-reveal>
     @include('public.partials.media-frame', [
         'path' => $imagePath,
         'alt' => $imageAlt,

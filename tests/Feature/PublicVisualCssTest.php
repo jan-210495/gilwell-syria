@@ -91,6 +91,44 @@ class PublicVisualCssTest extends TestCase
         $this->assertStringContainsString('grid-template-columns: 1fr;', $mobilePanels);
     }
 
+    public function test_motion_system_adds_tactile_hover_focus_and_reduced_motion_contracts(): void
+    {
+        $css = $this->normalizedCss();
+
+        $root = $this->block($css, ':root');
+        $this->assertStringContainsString('--motion-fast: 180ms;', $root);
+        $this->assertStringContainsString('--motion-medium: 320ms;', $root);
+        $this->assertStringContainsString('--motion-slow: 820ms;', $root);
+        $this->assertStringContainsString('--ease-out: cubic-bezier(0.16, 1, 0.3, 1);', $root);
+
+        $button = $this->block($css, '.button');
+        $this->assertStringContainsString('transition:', $button);
+
+        $buttonHover = $this->block($css, '.button:hover, .button:focus-visible');
+        $this->assertStringContainsString('transform: translateY(-2px);', $buttonHover);
+
+        $navAfter = $this->block($css, '.site-nav__link::after');
+        $this->assertStringContainsString('transform: scaleX(0);', $navAfter);
+
+        $cardHover = $this->block($css, '.content-card:hover, .content-card:focus-within');
+        $this->assertStringContainsString('transform: translateY(-6px);', $cardHover);
+
+        $mediaHover = $this->block($css, '.content-card:hover .media-frame__image, .content-card:focus-within .media-frame__image');
+        $this->assertStringContainsString('transform: scale(1.045);', $mediaHover);
+
+        $reveal = $this->block($css, '[data-reveal]');
+        $this->assertStringContainsString('opacity: 0;', $reveal);
+        $this->assertStringContainsString('transform: translateY(26px);', $reveal);
+
+        $visible = $this->block($css, '[data-reveal].is-visible');
+        $this->assertStringContainsString('opacity: 1;', $visible);
+        $this->assertStringContainsString('transform: none;', $visible);
+
+        $reduced = $this->block($css, '@media (prefers-reduced-motion: reduce)');
+        $this->assertStringContainsString('animation-duration: 0.01ms !important;', $reduced);
+        $this->assertStringContainsString('transition-duration: 0.01ms !important;', $reduced);
+    }
+
     public function test_five_corner_panel_buttons_have_visible_keyboard_focus(): void
     {
         $focusVisible = $this->block($this->normalizedCss(), '.hero-corner-panel__button:focus-visible');

@@ -95,7 +95,7 @@
     </section>
 
     <section class="credibility-strip">
-        <div class="section__header">
+        <div class="section__header" data-reveal>
             <p class="eyebrow">{{ $labels['impact'] }}</p>
             <h2>{{ $labels['impact'] }}</h2>
         </div>
@@ -116,7 +116,7 @@
     </section>
 
     <section class="section section--program-feature">
-        <div class="section__header">
+        <div class="section__header" data-reveal>
             <p class="eyebrow">{{ $labels['latest_programs'] }}</p>
             <h2>{{ $labels['programs'] }}</h2>
         </div>
@@ -139,14 +139,14 @@
     </section>
 
     <section class="section section--partner-wall">
-        <div class="section__header">
+        <div class="section__header" data-reveal>
             <p class="eyebrow">{{ $labels['partners'] }}</p>
             <h2>{{ $labels['partners'] }}</h2>
         </div>
         @if ($partners->isNotEmpty())
             <div class="logo-grid">
                 @foreach ($partners as $partner)
-                    <article class="partner-tile">
+                    <article class="partner-tile" data-reveal>
                         @include('public.partials.media-frame', [
                             'path' => $partner->logo_path,
                             'alt' => $field($partner, 'name'),
@@ -162,7 +162,7 @@
     </section>
 
     <section class="section section--gallery-feature">
-        <div class="section__header">
+        <div class="section__header" data-reveal>
             <p class="eyebrow">{{ $labels['latest_gallery'] }}</p>
             <h2>{{ $labels['gallery'] }}</h2>
         </div>
@@ -187,7 +187,7 @@
 
     <section class="section section--content-feed">
         <div>
-            <div class="section__header">
+            <div class="section__header" data-reveal>
                 <p class="eyebrow">{{ $labels['latest_news'] }}</p>
                 <h2>{{ $labels['news'] }}</h2>
             </div>
@@ -210,7 +210,7 @@
         </div>
 
         <div>
-            <div class="section__header">
+            <div class="section__header" data-reveal>
                 <p class="eyebrow">{{ $labels['latest_events'] }}</p>
                 <h2>{{ $labels['events'] }}</h2>
             </div>

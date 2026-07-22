@@ -81,6 +81,18 @@ class PublicSiteTest extends TestCase
             ->assertSee('data-hero-corner="merit"', false);
     }
 
+    public function test_home_marks_major_content_for_scroll_reveal(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('data-reveal', false)
+            ->assertSee('class="content-card', false)
+            ->assertSee('class="metric-card metric-card--proof"', false)
+            ->assertSee('class="partner-tile"', false);
+    }
+
     public function test_home_preloads_and_serves_optimized_corner_hero_assets(): void
     {
         $this->seed(DatabaseSeeder::class);
