@@ -1,8 +1,10 @@
 @php
-    $title = $field($page, 'seo_title', $field($settings, 'site_name', 'GilwellSyria'));
-    $heroTitle = $field($page, 'title', $field($settings, 'site_name', 'GilwellSyria'));
-    $heroSummary = $field($page, 'summary', $field($settings, 'tagline'));
+    $siteName = $field($settings, 'site_name', 'GilwellSyria');
+    $title = $field($page, 'seo_title', $siteName);
+    $heroTitle = $siteName;
+    $heroSummary = $field($settings, 'tagline', $field($page, 'summary'));
     $heroBody = $field($page, 'body');
+    $heroImage = asset('images/gilwellsyria-hero-training.png');
 @endphp
 
 @extends('public.layout')
@@ -11,26 +13,25 @@
 @section('description', $field($page, 'seo_description', $heroSummary))
 
 @section('content')
-    <section class="home-hero">
-        <div class="home-hero__content">
-            <p class="eyebrow">{{ $labels['home'] }}</p>
-            <h1>{{ $heroTitle }}</h1>
-            @if ($heroSummary !== '')
-                <p class="lead">{{ $heroSummary }}</p>
-            @endif
-            @include('public.partials.body', ['body' => $heroBody])
-            <div class="action-row">
-                <a class="button button--primary" href="{{ url("/{$locale}/contact") }}">{{ $labels['contact'] }}</a>
-                <a class="button button--secondary" href="{{ url("/{$locale}/contact") }}">{{ $labels['partner_with_us'] }}</a>
-                <a class="button button--text" href="{{ url("/{$locale}/programs") }}">{{ $labels['explore_programs'] }}</a>
+    <section class="home-hero home-hero--editorial" style="--hero-image: url('{{ $heroImage }}')">
+        <div class="home-hero__inner">
+            <div class="home-hero__content">
+                <p class="eyebrow">{{ $labels['home'] }}</p>
+                <h1>{{ $heroTitle }}</h1>
+                @if ($heroSummary !== '')
+                    <p class="lead">{{ $heroSummary }}</p>
+                @endif
+                @include('public.partials.body', ['body' => $heroBody])
+                <div class="action-row">
+                    <a class="button button--primary" href="{{ url("/{$locale}/contact") }}">{{ $labels['contact'] }}</a>
+                    <a class="button button--secondary" href="{{ url("/{$locale}/contact") }}">{{ $labels['partner_with_us'] }}</a>
+                    <a class="button button--text" href="{{ url("/{$locale}/programs") }}">{{ $labels['explore_programs'] }}</a>
+                </div>
             </div>
-        </div>
-        <div class="home-hero__visual" aria-hidden="true">
-            <img src="{{ asset('images/gilwellsyria-logo.jpeg') }}" alt="">
         </div>
     </section>
 
-    <section class="section section--compact">
+    <section class="credibility-strip">
         <div class="section__header">
             <p class="eyebrow">{{ $labels['impact'] }}</p>
             <h2>{{ $labels['impact'] }}</h2>
@@ -51,7 +52,7 @@
         @endif
     </section>
 
-    <section class="section">
+    <section class="section section--program-feature">
         <div class="section__header">
             <p class="eyebrow">{{ $labels['latest_programs'] }}</p>
             <h2>{{ $labels['programs'] }}</h2>
@@ -74,7 +75,7 @@
         @endif
     </section>
 
-    <section class="section section--band">
+    <section class="section section--partner-wall">
         <div class="section__header">
             <p class="eyebrow">{{ $labels['partners'] }}</p>
             <h2>{{ $labels['partners'] }}</h2>
@@ -97,7 +98,7 @@
         @endif
     </section>
 
-    <section class="section">
+    <section class="section section--gallery-feature">
         <div class="section__header">
             <p class="eyebrow">{{ $labels['latest_gallery'] }}</p>
             <h2>{{ $labels['gallery'] }}</h2>
@@ -121,7 +122,7 @@
         @endif
     </section>
 
-    <section class="section section--split">
+    <section class="section section--content-feed">
         <div>
             <div class="section__header">
                 <p class="eyebrow">{{ $labels['latest_news'] }}</p>

@@ -50,6 +50,28 @@ class PublicSiteTest extends TestCase
             ->assertSee('الشباب المستفيدون');
     }
 
+    public function test_home_uses_visual_reset_hero_and_wide_section_hooks(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('class="home-hero home-hero--editorial"', false)
+            ->assertSee('images/gilwellsyria-hero-training.png')
+            ->assertSee('<h1>GilwellSyria</h1>', false)
+            ->assertDontSee('<h1>Home</h1>', false)
+            ->assertSee('class="credibility-strip"', false)
+            ->assertSee('class="section section--program-feature"', false)
+            ->assertSee('class="section section--partner-wall"', false)
+            ->assertSee('class="section section--content-feed"', false);
+
+        $this->get('/ar')
+            ->assertOk()
+            ->assertSee('class="home-hero home-hero--editorial"', false)
+            ->assertSee('<h1>جيلويل سوريا</h1>', false)
+            ->assertDontSee('<h1>الرئيسية</h1>', false);
+    }
+
     public function test_core_pages_render_published_cms_records_and_hide_drafts(): void
     {
         $this->createMainSettings();
