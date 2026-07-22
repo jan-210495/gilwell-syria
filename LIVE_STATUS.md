@@ -15,7 +15,7 @@ external action.
 | QA Reviewer | task-5-final-visual-verification-and-acceptance | done | Final checks passed after focused desktop framing fix | 2026-07-22 13:14 |
 | Visual Fix Worker | task-5-visual-framing-fix | done | CSS framing fix committed after red-green, build, and visual recapture | 2026-07-22 12:30 |
 | Final Review Fix Worker | final-review-visual-fixes | done | Four final-review findings fixed; full tests, build, scans, and visual smoke passed | 2026-07-22 13:44 |
-| Asset Pipeline Worker | task-1-asset-pipeline | review | Source PNGs committed to scope, optimized WebP derivatives and transparent logo generated, asset test green | 2026-07-22 19:25 |
+| Asset Pipeline Worker | task-1-asset-pipeline | reviewing | Source PNGs committed to scope, optimized WebP derivatives and transparent logo generated, asset test green | 2026-07-22 19:25 |
 
 ## Status Values
 
