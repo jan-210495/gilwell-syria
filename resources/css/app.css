@@ -195,7 +195,7 @@
 
     .site-nav {
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: center;
         gap: 6px;
     }
@@ -218,13 +218,14 @@
         padding: 12px 10px 10px;
         border-block-end: 3px solid transparent;
         text-decoration: none;
+        white-space: nowrap;
     }
 
     .site-nav__link::after {
         content: "";
         position: absolute;
         inset-inline: 10px;
-        inset-block-end: -1px;
+        inset-block-end: 0;
         block-size: 3px;
         background: var(--color-gold-500);
         transform: scaleX(0);
@@ -244,7 +245,6 @@
 
     .site-nav__link:hover,
     .site-nav__link.is-active {
-        border-block-end-color: var(--color-gold-500);
         color: currentColor;
     }
 
@@ -425,7 +425,7 @@
 
     .hero-corner-panel__hover-zone {
         position: absolute;
-        inset-block-start: 30%;
+        inset-block-start: 25%;
         inset-block-end: 35%;
         inset-inline: 0;
         z-index: 1;
@@ -473,13 +473,7 @@
     }
 
     .hero-corner-panel__number {
-        position: absolute;
-        inset-block-start: clamp(96px, 12vh, 150px);
-        inset-inline-start: clamp(18px, 2vw, 30px);
-        font-size: 0.75rem;
-        font-weight: 900;
-        letter-spacing: 0.18em;
-        opacity: 0.62;
+        display: none;
     }
 
     .hero-corner-panel__value {
@@ -516,6 +510,13 @@
         width: min(100% - (var(--layout-gutter) * 2), var(--layout-wide));
         margin-inline: auto;
         padding-block: clamp(130px, 18vh, 220px) clamp(48px, 8vh, 92px);
+        transition: opacity 420ms ease, visibility 420ms ease;
+    }
+
+    /* Hide hero text overlay when a panel is being explored */
+    .home-hero--corners.has-panel-focus .home-hero__inner {
+        opacity: 0;
+        visibility: hidden;
     }
 
     .home-hero__content {
@@ -1029,15 +1030,17 @@
 
 @media (max-width: 1100px) {
     .site-header__inner {
-        grid-template-columns: 1fr;
+        grid-template-columns: auto 1fr auto;
     }
 
     .site-nav {
-        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
     }
 
-    [dir="rtl"] .site-nav {
-        justify-content: flex-end;
+    .site-nav::-webkit-scrollbar {
+        display: none;
     }
 
     .site-header__actions {
@@ -1166,9 +1169,9 @@
     }
 
     .hero-corners__backdrop {
-        position: relative;
-        order: 2;
-        min-block-size: auto;
+        position: absolute;
+        z-index: 1;
+        inset: 0;
     }
 
     .hero-corners__panels {

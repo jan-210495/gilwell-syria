@@ -74,6 +74,7 @@ if (revealTargets.length > 0) {
 
 /* Hero corner panel expansion via hover zones (desktop only) */
 const hoverZones = document.querySelectorAll('.hero-corner-panel__hover-zone');
+const heroSection = document.querySelector('.home-hero--corners');
 
 if (hoverZones.length > 0 && !window.matchMedia('(max-width: 820px)').matches) {
     hoverZones.forEach((zone) => {
@@ -81,10 +82,12 @@ if (hoverZones.length > 0 && !window.matchMedia('(max-width: 820px)').matches) {
 
         zone.addEventListener('mouseenter', () => {
             panel.classList.add('is-expanded');
+            if (heroSection) heroSection.classList.add('has-panel-focus');
         });
 
         zone.addEventListener('mouseleave', () => {
             panel.classList.remove('is-expanded');
+            if (heroSection) heroSection.classList.remove('has-panel-focus');
         });
     });
 
@@ -94,10 +97,32 @@ if (hoverZones.length > 0 && !window.matchMedia('(max-width: 820px)').matches) {
     heroPanels.forEach((panel) => {
         panel.addEventListener('focusin', () => {
             panel.classList.add('is-expanded');
+            if (heroSection) heroSection.classList.add('has-panel-focus');
         });
 
         panel.addEventListener('focusout', () => {
             panel.classList.remove('is-expanded');
+            if (heroSection) heroSection.classList.remove('has-panel-focus');
         });
+    });
+}
+
+/* Mobile: toggle has-panel-focus on panel hover/touch */
+if (heroSection && window.matchMedia('(max-width: 820px)').matches) {
+    const mobilePanels = document.querySelectorAll('.hero-corner-panel');
+
+    mobilePanels.forEach((panel) => {
+        panel.addEventListener('mouseenter', () => {
+            heroSection.classList.add('has-panel-focus');
+        });
+
+        panel.addEventListener('mouseleave', () => {
+            heroSection.classList.remove('has-panel-focus');
+        });
+
+        /* Touch: toggle on tap */
+        panel.addEventListener('touchstart', () => {
+            heroSection.classList.toggle('has-panel-focus');
+        }, { passive: true });
     });
 }
