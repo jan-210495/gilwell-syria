@@ -408,7 +408,7 @@
         z-index: 3;
         inset-block-start: 0;
         inset-inline: 0;
-        block-size: 30%;
+        block-size: 15%;
         background: transparent;
     }
 
@@ -545,8 +545,14 @@
         z-index: 4;
         width: min(100% - (var(--layout-gutter) * 2), var(--layout-wide));
         margin-inline: auto;
-        padding-block: clamp(130px, 18vh, 220px) clamp(48px, 8vh, 92px);
+        padding-block: clamp(100px, 14vh, 180px) clamp(40px, 7vh, 80px);
         transition: opacity 420ms ease, visibility 420ms ease;
+        pointer-events: none;
+    }
+
+    .home-hero__inner a,
+    .home-hero__inner button {
+        pointer-events: auto;
     }
 
     /* Hide hero text overlay when a panel is being explored */

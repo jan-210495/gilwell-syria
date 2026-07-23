@@ -58,7 +58,7 @@
                 </nav>
 
                 <div class="site-header__actions">
-                    <a class="language-switch" href="{{ $languageUrl }}" hreflang="{{ $otherLocale }}" data-menu-close>🌍 {{ $languageLabel }}</a>
+                    <a class="language-switch" href="{{ $languageUrl }}" hreflang="{{ $otherLocale }}" data-menu-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="inline-size:18px;block-size:18px;vertical-align:middle;"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="4" ry="10"/><line x1="12" y1="2" x2="12" y2="22"/><path d="M2 12h20M4.5 7h15M4.5 17h15"/></svg> {{ $languageLabel }}</a>
                     <a class="button button--primary" href="{{ url("/{$locale}/contact") }}" data-menu-close>{{ $labels['contact'] }}</a>
                 </div>
             </div>
