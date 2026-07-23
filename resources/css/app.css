@@ -412,6 +412,28 @@
         background: transparent;
     }
 
+    .hero-corners__curve {
+        position: absolute;
+        z-index: 5;
+        inset-block-start: 20%;
+        inset-inline: 0;
+        inline-size: 100%;
+        block-size: 40%;
+        pointer-events: none;
+        opacity: 1;
+        transition: opacity 520ms ease;
+    }
+
+    .hero-corners__curve-segment {
+        stroke-width: 3;
+        filter: drop-shadow(0 0 6px currentColor);
+    }
+
+    /* Hide curve when a panel is being explored */
+    .home-hero--corners.has-panel-focus .hero-corners__curve {
+        opacity: 0;
+    }
+
     .hero-corners__panels {
         position: absolute;
         z-index: 2;
@@ -1237,6 +1259,10 @@
 
     /* On mobile stacked panels, hover/touch interaction uses CSS :hover directly */
     .hero-corners__nav-blocker {
+        display: none;
+    }
+
+    .hero-corners__curve {
         display: none;
     }
 
