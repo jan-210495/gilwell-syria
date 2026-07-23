@@ -40,9 +40,9 @@ if grep -q '^APP_KEY=$' .env || ! grep -q '^APP_KEY=' .env; then
     docker compose exec php php artisan key:generate --ansi
 fi
 
-# 6. Run migrations inside the running PHP container
-echo "Running migrations..."
-docker compose exec php php artisan migrate --force
+# 6. Run migrations + seed the database
+echo "Running migrations & seeding database..."
+docker compose exec php php artisan migrate:fresh --seed --force
 
 echo ""
 echo "=== Ready! Open http://localhost:8000 in your browser ==="
