@@ -65,12 +65,36 @@
     <section class="home-hero home-hero--corners" aria-labelledby="home-hero-title">
         <div class="hero-corners__backdrop">
             <div class="hero-corners__nav-blocker" aria-hidden="true"></div>
-            <svg class="hero-corners__curve" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
-                <path class="hero-corners__curve-segment hero-corners__curve-segment--merit" d="M0,65 C60,15 160,15 200,40" stroke="#6B0F68" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                <path class="hero-corners__curve-segment hero-corners__curve-segment--discipline" d="M200,40 C280,70 320,80 400,75" stroke="#2E5A2A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                <path class="hero-corners__curve-segment hero-corners__curve-segment--honor" d="M400,75 C480,30 520,20 600,35" stroke="#E0AB00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                <path class="hero-corners__curve-segment hero-corners__curve-segment--tenacity" d="M600,35 C680,70 720,80 800,55" stroke="#0B3570" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                <path class="hero-corners__curve-segment hero-corners__curve-segment--loyalty" d="M800,55 C880,20 940,15 1000,45" stroke="#B3121B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <svg class="hero-corners__curve" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                    <linearGradient id="curve-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#6B0F68"/>
+                        <stop offset="19%" stop-color="#6B0F68"/>
+                        <stop offset="21%" stop-color="#2E5A2A"/>
+                        <stop offset="39%" stop-color="#2E5A2A"/>
+                        <stop offset="41%" stop-color="#E0AB00"/>
+                        <stop offset="59%" stop-color="#E0AB00"/>
+                        <stop offset="61%" stop-color="#0B3570"/>
+                        <stop offset="79%" stop-color="#0B3570"/>
+                        <stop offset="81%" stop-color="#B3121B"/>
+                        <stop offset="100%" stop-color="#B3121B"/>
+                    </linearGradient>
+                    <filter id="curve-glow" x="-2%" y="-20%" width="104%" height="140%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+                        <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0" result="softBlur"/>
+                        <feMerge>
+                            <feMergeNode in="softBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <path d="M 0,60 C 80,20 150,20 200,130 S 340,250 400,180 S 550,20 600,70 S 750,60 800,120 S 940,250 1000,45"
+                      stroke="url(#curve-gradient)"
+                      stroke-width="3"
+                      fill="none"
+                      stroke-linecap="round"
+                      vector-effect="non-scaling-stroke"
+                      filter="url(#curve-glow)"/>
             </svg>
             <ul class="hero-corners__panels" aria-label="{{ $locale === 'ar' ? 'زوايا جيلويل الخمس' : 'Five corners of Gilwell' }}">
                 @foreach ($heroCorners as $corner)
