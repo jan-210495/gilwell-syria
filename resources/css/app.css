@@ -1215,14 +1215,14 @@
     }
 
     .hero-corners__backdrop {
-        position: absolute;
+        position: relative;
         z-index: 1;
-        inset: 0;
     }
 
     .hero-corners__panels {
         display: grid;
         grid-template-columns: 1fr;
+        position: relative;
     }
 
     .hero-corner-panel {
@@ -1252,6 +1252,7 @@
 
     .home-hero__inner {
         padding-block: 44px 32px;
+        pointer-events: auto;
     }
 
     .card-grid,
