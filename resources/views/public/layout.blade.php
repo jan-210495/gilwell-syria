@@ -58,7 +58,7 @@
                 </nav>
 
                 <div class="site-header__actions">
-                    <a class="language-switch" href="{{ $languageUrl }}" hreflang="{{ $otherLocale }}" data-menu-close>{{ $languageLabel }}</a>
+                    <a class="language-switch" href="{{ $languageUrl }}" hreflang="{{ $otherLocale }}" data-menu-close>🌍 {{ $languageLabel }}</a>
                     <a class="button button--primary" href="{{ url("/{$locale}/contact") }}" data-menu-close>{{ $labels['contact'] }}</a>
                 </div>
             </div>

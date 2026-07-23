@@ -165,8 +165,11 @@
     }
 
     .brand__text {
-        display: grid;
+        display: flex;
+        flex-direction: column;
         gap: 2px;
+        overflow: hidden;
+        transition: gap var(--motion-medium) var(--ease-out);
     }
 
     .brand__text strong,
@@ -174,6 +177,7 @@
         color: var(--color-pine-900);
         font-size: 1.05rem;
         line-height: 1.2;
+        transition: font-size var(--motion-medium) var(--ease-out);
     }
 
     .site-header .brand__text strong {
@@ -191,6 +195,25 @@
     .site-header .brand__text span {
         color: currentColor;
         opacity: 0.8;
+        transition: opacity var(--motion-medium) ease, max-height var(--motion-medium) var(--ease-out);
+    }
+
+    /* Hero active: hide tagline, larger name */
+    .public-site.has-dark-hero .site-header:not(.is-scrolled) .brand__text span {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .public-site.has-dark-hero .site-header:not(.is-scrolled) .brand__text strong {
+        font-size: 1.35rem;
+    }
+
+    /* Scrolled or non-home: show tagline, normal name */
+    .site-header.is-scrolled .brand__text span,
+    .public-site:not(.has-dark-hero) .brand__text span {
+        opacity: 0.8;
+        max-height: 40px;
     }
 
     .site-nav {
@@ -229,12 +252,8 @@
         block-size: 3px;
         background: var(--color-gold-500);
         transform: scaleX(0);
-        transform-origin: left;
+        transform-origin: center;
         transition: transform var(--motion-medium) var(--ease-out);
-    }
-
-    [dir="rtl"] .site-nav__link::after {
-        transform-origin: right;
     }
 
     .site-nav__link:hover::after,
@@ -304,6 +323,21 @@
     .language-switch {
         min-block-size: 44px;
         padding: 11px 2px;
+    }
+
+    /* On homepage (hero active): hide Contact button and language switch in navbar */
+    .public-site.has-dark-hero .site-header:not(.is-scrolled) .site-header__actions .button--primary {
+        display: none;
+    }
+
+    .public-site.has-dark-hero .site-header:not(.is-scrolled) .language-switch {
+        display: inline-flex;
+    }
+
+    /* On non-home or scrolled: hide language switch, show Contact button */
+    .site-header.is-scrolled .language-switch,
+    .public-site:not(.has-dark-hero) .language-switch {
+        display: none;
     }
 
     .button {
@@ -455,7 +489,7 @@
         position: absolute;
         inset: 0;
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         justify-content: center;
         inline-size: 100%;
         block-size: 100%;
@@ -464,12 +498,14 @@
         background: transparent;
         color: var(--color-white);
         cursor: default;
+        pointer-events: none;
         text-align: start;
     }
 
     .hero-corner-panel__button:focus-visible {
         outline: 3px solid var(--color-white);
         outline-offset: -8px;
+        pointer-events: auto;
     }
 
     .hero-corner-panel__number {
@@ -1031,16 +1067,21 @@
 @media (max-width: 1100px) {
     .site-header__inner {
         grid-template-columns: auto 1fr auto;
+        gap: 12px;
     }
 
     .site-nav {
         flex-wrap: nowrap;
-        overflow-x: auto;
-        scrollbar-width: none;
+        gap: 2px;
     }
 
-    .site-nav::-webkit-scrollbar {
-        display: none;
+    .site-nav__link {
+        padding: 10px 6px 8px;
+        font-size: 0.85rem;
+    }
+
+    .site-nav__link::after {
+        inset-inline: 6px;
     }
 
     .site-header__actions {
@@ -1111,6 +1152,7 @@
         inset-block-start: 82px;
         inset-inline: 16px;
         display: grid;
+        justify-items: start;
         gap: 0;
         max-block-size: calc(100svh - 104px);
         padding: 10px 18px;
@@ -1124,6 +1166,10 @@
         pointer-events: none;
         transform: translateY(-10px);
         transition: opacity 260ms ease, transform 260ms ease;
+    }
+
+    [dir="rtl"] .site-nav {
+        justify-items: end;
     }
 
     .site-header.is-menu-open .site-nav {
@@ -1201,6 +1247,7 @@
     .hero-corner-panel__button {
         align-items: flex-end;
         cursor: pointer;
+        pointer-events: auto;
     }
 
     .home-hero__inner {
