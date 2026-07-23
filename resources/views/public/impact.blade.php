@@ -9,7 +9,7 @@
 @section('description', $field($page, 'seo_description', $summary))
 
 @section('content')
-    <section class="section">
+    <section class="section section--impact-report">
         @include('public.partials.page-hero', [
             'eyebrow' => $labels['impact'],
             'title' => $pageTitle,

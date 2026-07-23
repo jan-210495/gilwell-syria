@@ -9,6 +9,41 @@ These prompts are candidates for Mastermind review. Only the Mastermind may
 decide whether to deliver a final prompt to the Human Operator or request an
 external Google Stitch run.
 
+## Identity Motion Revision Prompt
+
+Create a premium bilingual GilwellSyria homepage inspired by a cinematic
+five-corner identity system, not a government website. The hero should use five
+vertical realistic scout photography panels for Merit, Discipline, Honor,
+Tenacity, and Loyalty. Default state is quiet and image-led; hover/focus makes a
+panel expand and reveal the value name, short meaning, and color accent.
+
+Use a transparent-feeling logo treatment derived from the approved mark, a
+strong editorial GilwellSyria wordmark, tactile hover/press button states,
+animated nav underline states, cards that lift subtly on hover, and scroll
+reveal motion. Mobile uses a burger menu with stacked links, never a horizontal
+scrolling navbar. Preserve English LTR and Arabic RTL quality. No donation UI
+and no public contact form.
+
+## Recommended Visual Reset Prompt
+
+Create a premium bilingual public homepage for GilwellSyria, a youth leadership
+and community service nonprofit in Syria. Use the very-wide container constraint
+`min(100% - responsive gutters, 1680px)` with responsive gutters, and keep
+reading content in a reading container about `760px` to `860px`. Use dense grids
+with 5 columns at very wide widths, 4 columns at normal desktop widths, 2
+columns at tablet widths, and 1 column on mobile. The first viewport must have a
+strong documentary-style hero image of youth leadership training in a Syrian or
+Levant community setting, with natural daylight, realistic nonprofit photography,
+no visible text, no logos, and no flags. Place the GilwellSyria logo only in the
+header and footer, not as the hero artwork.
+
+The hero headline should identify GilwellSyria directly, with clear CTAs for
+Contact us, Partner with us, and Explore programs. Build credibility through a
+wide impact metric strip, polished program cards, a calm partner logo wall, and
+dense but readable gallery/news/events modules. Use pine green, navy, warm paper,
+and disciplined gold accents. Support equal English LTR and Arabic RTL layouts.
+Do not include donation UI or a public contact form.
+
 ## Shared Prompt Context
 
 Attachment expected: `assets/gilwellsyria-logo.jpeg`.

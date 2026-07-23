@@ -50,6 +50,125 @@ class PublicSiteTest extends TestCase
             ->assertSee('الشباب المستفيدون');
     }
 
+    public function test_home_uses_five_corner_identity_hero_and_wide_section_hooks(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('class="home-hero home-hero--corners"', false)
+            ->assertSee('class="hero-corners__panels"', false)
+            ->assertSee('<h1 id="home-hero-title">GilwellSyria</h1>', false)
+            ->assertDontSee('<h1>Home</h1>', false)
+            ->assertSee('class="credibility-strip"', false)
+            ->assertSee('class="section section--program-feature"', false)
+            ->assertSee('class="section section--partner-wall"', false)
+            ->assertSee('class="section section--content-feed"', false);
+
+        foreach (['merit', 'discipline', 'honor', 'tenacity', 'loyalty'] as $corner) {
+            $this->get('/en')
+                ->assertOk()
+                ->assertSee("data-hero-corner=\"{$corner}\"", false)
+                ->assertSee("images/hero-corners/optimized/{$corner}.webp")
+                ->assertSee("images/hero-corners/{$corner}.png");
+        }
+
+        $this->get('/ar')
+            ->assertOk()
+            ->assertSee('class="home-hero home-hero--corners"', false)
+            ->assertSee('<h1 id="home-hero-title">جيلويل سوريا</h1>', false)
+            ->assertDontSee('<h1>الرئيسية</h1>', false)
+            ->assertSee('data-hero-corner="merit"', false);
+    }
+
+    public function test_home_marks_major_content_for_scroll_reveal(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('data-reveal', false)
+            ->assertSee('class="content-card', false)
+            ->assertSee('class="metric-card metric-card--proof"', false)
+            ->assertSee('class="partner-tile"', false);
+    }
+
+    public function test_home_preloads_and_serves_optimized_corner_hero_assets(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        foreach (['merit', 'discipline', 'honor', 'tenacity', 'loyalty'] as $corner) {
+            $optimizedHero = public_path("images/hero-corners/optimized/{$corner}.webp");
+            $sourceHero = public_path("images/hero-corners/{$corner}.png");
+
+            $this->assertFileExists($optimizedHero);
+            $this->assertLessThan(filesize($sourceHero), filesize($optimizedHero));
+        }
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('<link rel="preload" as="image"', false)
+            ->assertSee('images/hero-corners/optimized/merit.webp')
+            ->assertSee('image-set(', false)
+            ->assertSee('images/hero-corners/merit.png')
+            ->assertDontSee('gilwellsyria-hero-training.webp');
+    }
+
+    public function test_five_corner_panels_are_exposed_to_assistive_technology(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('class="hero-corners__panels"', false)
+            ->assertDontSee('class="hero-corners__backdrop" aria-hidden="true"', false)
+            ->assertSee('class="hero-corner-panel__button"', false)
+            ->assertSee('aria-label="Merit - Earned growth through skill, service, and recognition."', false);
+    }
+
+    public function test_public_header_uses_transparent_brand_and_accessible_burger_menu(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('data-site-header', false)
+            ->assertSee('gilwellsyria-logo-transparent.png')
+            ->assertSee('class="brand__logo brand__logo--transparent"', false)
+            ->assertSee('class="menu-toggle"', false)
+            ->assertSee('type="button"', false)
+            ->assertSee('aria-expanded="false"', false)
+            ->assertSee('aria-controls="site-menu-panel"', false)
+            ->assertSee('data-menu-toggle', false)
+            ->assertSee('id="site-menu-panel"', false)
+            ->assertSee('data-menu-panel', false)
+            ->assertSee('data-menu-close', false);
+
+        $this->get('/ar')
+            ->assertOk()
+            ->assertSee('data-site-header', false)
+            ->assertSee('aria-controls="site-menu-panel"', false)
+            ->assertSee('جيلويل سوريا');
+    }
+
+    public function test_burger_panel_visibility_is_synchronized_with_the_mobile_breakpoint(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en')
+            ->assertOk()
+            ->assertSee('data-menu-panel', false)
+            ->assertDontSee('data-menu-panel hidden', false);
+
+        $script = file_get_contents(resource_path('js/app.js'));
+
+        $this->assertNotFalse($script);
+        $this->assertStringContainsString("window.matchMedia('(max-width: 820px)')", $script);
+        $this->assertStringContainsString('menuPanel.hidden = isMobile && !shouldOpen;', $script);
+        $this->assertStringContainsString('menuPanel.inert = isMobile && !shouldOpen;', $script);
+        $this->assertStringContainsString("mobileMenuQuery.addEventListener('change', () => setMenuOpen(false));", $script);
+    }
+
     public function test_core_pages_render_published_cms_records_and_hide_drafts(): void
     {
         $this->createMainSettings();
@@ -167,6 +286,38 @@ class PublicSiteTest extends TestCase
         $this->get('/en/gallery')->assertOk()->assertSee('No published albums yet.');
         $this->get('/en/news')->assertOk()->assertSee('No published news yet.');
         $this->get('/en/events')->assertOk()->assertSee('No published events or trainings yet.');
+    }
+
+    public function test_listing_and_contact_pages_use_visual_reset_hooks(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->get('/en/programs')
+            ->assertOk()
+            ->assertSee('class="section section--listing"', false)
+            ->assertSee('class="card-grid card-grid--featured"', false)
+            ->assertSee('class="page-hero page-hero--substantial"', false);
+
+        $this->get('/en/gallery')
+            ->assertOk()
+            ->assertSee('class="card-grid card-grid--compact"', false);
+
+        $this->get('/en/news')
+            ->assertOk()
+            ->assertSee('class="card-grid card-grid--compact"', false);
+
+        $this->get('/en/events')
+            ->assertOk()
+            ->assertSee('class="card-grid card-grid--compact"', false);
+
+        $this->get('/en/partners')
+            ->assertOk()
+            ->assertSee('class="logo-grid logo-grid--wide"', false)
+            ->assertSee('class="content-card content-card--partner"', false);
+
+        $this->get('/en/contact')
+            ->assertOk()
+            ->assertSee('class="contact-grid contact-grid--wide"', false);
     }
 
     public function test_contact_page_shows_details_only_without_forms_or_donation_language(): void

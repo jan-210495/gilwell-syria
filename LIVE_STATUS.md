@@ -8,13 +8,11 @@ external action.
 
 | Agent | Current Task | Status | Current Focus | Last Update |
 | --- | --- | --- | --- | --- |
-| Mastermind | navbar-hero-interaction-fix | reviewing | QA report received; awaiting Human Operator visual verification for acceptance | 2026-07-23 |
+| Mastermind | public-identity-motion-redesign | planning | Identity motion implementation plan written; awaiting explicit execution instruction | 2026-07-22 19:13 |
 | Designer | task-1-hero-asset-and-design-guidance | done | Review fixes committed for exact visual reset layout constraints | 2026-07-22 10:53 |
 | Front-End Builder | task-4-listing-pages-shared-partials-and-contact-polish | done | Task 4 markup hooks committed; public visual regression suite passed | 2026-07-22 11:47 |
 | Back-End Builder | v1-cms-backend | done | QA backend authorization, publish normalization, and seed refinements ready for review | 2026-07-22 00:09 |
 | QA Reviewer | task-5-durable-documentation-and-final-verification | done | Corrected post-prerequisite final verification and committed evidence complete | 2026-07-22 20:31 |
-| Arena Agent (Front-End Builder) | navbar-hero-interaction-fix | done | Navbar visibility, hero hover zones, and nav underline fixes committed | 2026-07-23 |
-| Arena Agent (QA Reviewer) | navbar-hero-interaction-fix | done | QA review complete; recommend accept-with-visual-confirmation | 2026-07-23 |
 | Visual Fix Worker | task-5-visual-framing-fix | done | CSS framing fix committed after red-green, build, and visual recapture | 2026-07-22 12:30 |
 | Final Review Fix Worker | final-review-visual-fixes | done | Four final-review findings fixed; full tests, build, scans, and visual smoke passed | 2026-07-22 13:44 |
 | Asset Pipeline Worker | task-1-asset-pipeline | done | Mastermind accepted the clean re-review of optimized WebP derivatives and transparent logo delivery | 2026-07-22 20:31 |

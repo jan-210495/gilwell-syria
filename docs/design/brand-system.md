@@ -275,3 +275,44 @@ The v1 public site must meet WCAG AA.
   partner context, impact periods, and clear contact paths.
 - Do not introduce new logos, mascot graphics, generated imagery, or decorative
   SVG scenes for v1 unless Mastermind explicitly approves them.
+
+## Visual Reset Addendum
+
+The accepted public visual reset uses a very-wide editorial layout for desktop.
+Use the main wide container constraint `min(100% - responsive gutters, 1680px)`
+with responsive gutters of `clamp(20px, 4vw, 72px)`. Keep reading content in a
+reading container about `760px` to `860px`. Use dense grids with 5 columns at
+very wide widths, 4 columns at normal desktop widths, 2 columns at tablet
+widths, and 1 column on mobile.
+
+The home hero must use a documentary-style youth leadership or community
+training image as the primary visual signal. The logo remains in the header and
+footer, not as the hero artwork. Hero text should sit over a readable scrim or
+solid treatment that belongs to the same image field, not inside a separate
+floating card.
+
+The homepage should prioritize premium donor and partner credibility. Use a
+strong credibility strip near the hero, polished program cards, a calm partner
+logo wall, and scan-friendly news, gallery, and event modules.
+
+Keep v1 contact-only: no public contact form, no donation UI, and no donation
+language.
+
+## Identity Motion Addendum
+
+The accepted second visual revision uses a five-corner cinematic hero built
+from realistic scout-panel photography: Merit, Discipline, Honor, Tenacity, and
+Loyalty. The default hero state should be quiet and image-led; value labels and
+meanings become prominent on hover and keyboard focus.
+
+The public header should feel integrated with the hero, not like a government
+navigation bar. Use a transparent brand-mark treatment derived from the
+approved logo, animated nav underline states, and a paper/backdrop state after
+scroll.
+
+Mobile navigation must use an accessible burger menu with a stacked panel. Do
+not use horizontal scrolling nav for the primary mobile menu.
+
+Buttons, cards, metrics, partner tiles, and hero panels need visible hover,
+focus, and press feedback. Keep motion restrained, respect
+`prefers-reduced-motion`, and avoid decorative orb/blob background systems.

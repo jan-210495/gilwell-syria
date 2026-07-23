@@ -9,7 +9,7 @@
 @section('description', $field($page, 'seo_description', $summary))
 
 @section('content')
-    <section class="section">
+    <section class="section section--listing">
         @include('public.partials.page-hero', [
             'eyebrow' => $labels['events'],
             'title' => $pageTitle,
@@ -22,7 +22,7 @@
         @include('public.partials.body', ['body' => $field($page, 'body')])
 
         @if ($events->isNotEmpty())
-            <div class="card-grid">
+            <div class="card-grid card-grid--compact">
                 @foreach ($events as $event)
                     @include('public.partials.record-card', [
                         'title' => $field($event, 'title'),

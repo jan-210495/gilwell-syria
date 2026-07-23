@@ -1,37 +1,101 @@
 @php
-    $title = $field($page, 'seo_title', $field($settings, 'site_name', 'GilwellSyria'));
-    $heroTitle = $field($page, 'title', $field($settings, 'site_name', 'GilwellSyria'));
-    $heroSummary = $field($page, 'summary', $field($settings, 'tagline'));
+    $siteName = $field($settings, 'site_name', 'GilwellSyria');
+    $title = $field($page, 'seo_title', $siteName);
+    $heroTitle = $siteName;
+    $heroSummary = $field($settings, 'tagline', $field($page, 'summary'));
     $heroBody = $field($page, 'body');
+    $heroCorners = [
+        [
+            'key' => 'merit',
+            'number' => '01',
+            'color' => '#6B0F68',
+            'label_en' => 'Merit',
+            'label_ar' => 'الاستحقاق',
+            'copy_en' => 'Earned growth through skill, service, and recognition.',
+            'copy_ar' => 'نمو مستحق عبر المهارة والخدمة والتقدير.',
+        ],
+        [
+            'key' => 'discipline',
+            'number' => '02',
+            'color' => '#2E5A2A',
+            'label_en' => 'Discipline',
+            'label_ar' => 'الانضباط',
+            'copy_en' => 'Focused training, structure, and reliable practice.',
+            'copy_ar' => 'تدريب مركز ونظام وممارسة موثوقة.',
+        ],
+        [
+            'key' => 'honor',
+            'number' => '03',
+            'color' => '#E0AB00',
+            'label_en' => 'Honor',
+            'label_ar' => 'الشرف',
+            'copy_en' => 'Dignified service and responsibility to others.',
+            'copy_ar' => 'خدمة كريمة ومسؤولية تجاه الآخرين.',
+        ],
+        [
+            'key' => 'tenacity',
+            'number' => '04',
+            'color' => '#0B3570',
+            'label_en' => 'Tenacity',
+            'label_ar' => 'المثابرة',
+            'copy_en' => 'Perseverance through challenge and teamwork.',
+            'copy_ar' => 'ثبات أمام التحدي بروح الفريق.',
+        ],
+        [
+            'key' => 'loyalty',
+            'number' => '05',
+            'color' => '#B3121B',
+            'label_en' => 'Loyalty',
+            'label_ar' => 'الولاء',
+            'copy_en' => 'Belonging, trust, and shared commitment.',
+            'copy_ar' => 'انتماء وثقة والتزام مشترك.',
+        ],
+    ];
 @endphp
 
 @extends('public.layout')
 
 @section('title', $title)
 @section('description', $field($page, 'seo_description', $heroSummary))
+@section('preload')
+    <link rel="preload" as="image" href="{{ asset('images/hero-corners/optimized/merit.webp') }}" type="image/webp" fetchpriority="high">
+@endsection
 
 @section('content')
-    <section class="home-hero">
-        <div class="home-hero__content">
-            <p class="eyebrow">{{ $labels['home'] }}</p>
-            <h1>{{ $heroTitle }}</h1>
-            @if ($heroSummary !== '')
-                <p class="lead">{{ $heroSummary }}</p>
-            @endif
-            @include('public.partials.body', ['body' => $heroBody])
-            <div class="action-row">
-                <a class="button button--primary" href="{{ url("/{$locale}/contact") }}">{{ $labels['contact'] }}</a>
-                <a class="button button--secondary" href="{{ url("/{$locale}/contact") }}">{{ $labels['partner_with_us'] }}</a>
-                <a class="button button--text" href="{{ url("/{$locale}/programs") }}">{{ $labels['explore_programs'] }}</a>
-            </div>
+    <section class="home-hero home-hero--corners" aria-labelledby="home-hero-title">
+        <div class="hero-corners__backdrop">
+            <ul class="hero-corners__panels" aria-label="{{ $locale === 'ar' ? 'زوايا جيلويل الخمس' : 'Five corners of Gilwell' }}">
+                @foreach ($heroCorners as $corner)
+                    @php
+                        $cornerLabel = $locale === 'ar' ? $corner['label_ar'] : $corner['label_en'];
+                        $cornerCopy = $locale === 'ar' ? $corner['copy_ar'] : $corner['copy_en'];
+                        $cornerSource = asset("images/hero-corners/{$corner['key']}.png");
+                        $cornerOptimized = asset("images/hero-corners/optimized/{$corner['key']}.webp");
+                    @endphp
+                    <li class="hero-corner-panel hero-corner-panel--{{ $corner['key'] }}" data-hero-corner="{{ $corner['key'] }}" style="--corner-color: {{ $corner['color'] }}; --corner-image-fallback: url('{{ $cornerSource }}'); --corner-image: image-set(url('{{ $cornerOptimized }}') type('image/webp'), url('{{ $cornerSource }}') type('image/png'));"><button class="hero-corner-panel__button" type="button" aria-label="{{ $cornerLabel }} - {{ $cornerCopy }}"><span class="hero-corner-panel__number">{{ $corner['number'] }}</span><span class="hero-corner-panel__value"><strong>{{ $cornerLabel }}</strong><span>{{ $cornerCopy }}</span></span></button></li>
+                @endforeach
+            </ul>
         </div>
-        <div class="home-hero__visual" aria-hidden="true">
-            <img src="{{ asset('images/gilwellsyria-logo.jpeg') }}" alt="">
+
+        <div class="home-hero__inner">
+            <div class="home-hero__content" data-reveal>
+                <p class="eyebrow">{{ $labels['home'] }}</p>
+                <h1 id="home-hero-title">{{ $heroTitle }}</h1>
+                @if ($heroSummary !== '')
+                    <p class="lead">{{ $heroSummary }}</p>
+                @endif
+                @include('public.partials.body', ['body' => $heroBody])
+                <div class="action-row">
+                    <a class="button button--primary" href="{{ url("/{$locale}/contact") }}">{{ $labels['contact'] }}</a>
+                    <a class="button button--secondary" href="{{ url("/{$locale}/contact") }}">{{ $labels['partner_with_us'] }}</a>
+                    <a class="button button--text" href="{{ url("/{$locale}/programs") }}">{{ $labels['explore_programs'] }}</a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="section section--compact">
-        <div class="section__header">
+    <section class="credibility-strip">
+        <div class="section__header" data-reveal>
             <p class="eyebrow">{{ $labels['impact'] }}</p>
             <h2>{{ $labels['impact'] }}</h2>
         </div>
@@ -51,8 +115,8 @@
         @endif
     </section>
 
-    <section class="section">
-        <div class="section__header">
+    <section class="section section--program-feature">
+        <div class="section__header" data-reveal>
             <p class="eyebrow">{{ $labels['latest_programs'] }}</p>
             <h2>{{ $labels['programs'] }}</h2>
         </div>
@@ -74,15 +138,15 @@
         @endif
     </section>
 
-    <section class="section section--band">
-        <div class="section__header">
+    <section class="section section--partner-wall">
+        <div class="section__header" data-reveal>
             <p class="eyebrow">{{ $labels['partners'] }}</p>
             <h2>{{ $labels['partners'] }}</h2>
         </div>
         @if ($partners->isNotEmpty())
             <div class="logo-grid">
                 @foreach ($partners as $partner)
-                    <article class="partner-tile">
+                    <article class="partner-tile" data-reveal>
                         @include('public.partials.media-frame', [
                             'path' => $partner->logo_path,
                             'alt' => $field($partner, 'name'),
@@ -97,8 +161,8 @@
         @endif
     </section>
 
-    <section class="section">
-        <div class="section__header">
+    <section class="section section--gallery-feature">
+        <div class="section__header" data-reveal>
             <p class="eyebrow">{{ $labels['latest_gallery'] }}</p>
             <h2>{{ $labels['gallery'] }}</h2>
         </div>
@@ -121,9 +185,9 @@
         @endif
     </section>
 
-    <section class="section section--split">
+    <section class="section section--content-feed">
         <div>
-            <div class="section__header">
+            <div class="section__header" data-reveal>
                 <p class="eyebrow">{{ $labels['latest_news'] }}</p>
                 <h2>{{ $labels['news'] }}</h2>
             </div>
@@ -146,7 +210,7 @@
         </div>
 
         <div>
-            <div class="section__header">
+            <div class="section__header" data-reveal>
                 <p class="eyebrow">{{ $labels['latest_events'] }}</p>
                 <h2>{{ $labels['events'] }}</h2>
             </div>

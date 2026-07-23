@@ -8,9 +8,12 @@
     $imageAlt ??= $title;
     $actionLabel ??= null;
     $external ??= false;
+    if (! isset($cardClass)) {
+        $cardClass = '';
+    }
 @endphp
 
-<article class="content-card">
+<article class="content-card {{ $cardClass }}" data-reveal>
     @include('public.partials.media-frame', [
         'path' => $imagePath,
         'alt' => $imageAlt,

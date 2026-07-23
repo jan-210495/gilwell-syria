@@ -4,7 +4,7 @@
     $actions ??= [];
 @endphp
 
-<header class="page-hero">
+<header class="page-hero page-hero--substantial">
     <div class="page-hero__content">
         @if ($eyebrow)
             <p class="eyebrow">{{ $eyebrow }}</p>
