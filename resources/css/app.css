@@ -459,8 +459,8 @@
 
     .hero-corner-panel__hover-zone {
         position: absolute;
-        inset-block-start: 33%;
-        inset-block-end: 33%;
+        inset-block-start: 25%;
+        inset-block-end: 33.4%;
         inset-inline: 0;
         z-index: 1;
         background: transparent;
