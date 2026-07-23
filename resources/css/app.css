@@ -102,6 +102,13 @@
     }
 
     .site-header.is-scrolled,
+    .public-site:not(.has-dark-hero) .site-header {
+        border-block-end-color: var(--color-border);
+        background: rgb(248 247 243 / 94%);
+        color: var(--color-ink);
+        box-shadow: 0 10px 30px rgb(17 24 39 / 8%);
+        backdrop-filter: blur(14px);
+    }
     .site-header.is-menu-open {
         border-block-end-color: var(--color-border);
         background: rgb(248 247 243 / 94%);
@@ -110,6 +117,11 @@
         backdrop-filter: blur(14px);
     }
 
+    /* Non-home pages: header starts opaque because there is no dark hero behind it */
+
+    .public-site:not(.has-dark-hero) #main-content {
+        padding-block-start: var(--header-block-size, 94px);
+    }
     html.has-open-menu {
         overflow: hidden;
     }
@@ -352,12 +364,24 @@
 
     .hero-corners__backdrop {
         position: absolute;
-        z-index: -2;
+        z-index: 1;
         inset: 0;
         background: var(--color-pine-900);
     }
 
+    .hero-corners__nav-blocker {
+        position: absolute;
+        z-index: 3;
+        inset-block-start: 0;
+        inset-inline: 0;
+        block-size: 30%;
+        background: transparent;
+    }
+
     .hero-corners__panels {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
         display: flex;
         block-size: 100%;
         margin: 0;
@@ -399,18 +423,31 @@
         transition: transform 520ms ease;
     }
 
+    .hero-corner-panel__hover-zone {
+        position: absolute;
+        inset-block-start: 30%;
+        inset-block-end: 35%;
+        inset-inline: 0;
+        z-index: 1;
+        background: transparent;
+        cursor: pointer;
+    }
+
     .hero-corner-panel:hover,
-    .hero-corner-panel:focus-within {
+    .hero-corner-panel:focus-within,
+    .hero-corner-panel.is-expanded {
         flex-grow: 2.35;
     }
 
     .hero-corner-panel:hover::before,
-    .hero-corner-panel:focus-within::before {
+    .hero-corner-panel:focus-within::before,
+    .hero-corner-panel.is-expanded::before {
         background: rgb(8 15 12 / 34%);
     }
 
     .hero-corner-panel:hover::after,
-    .hero-corner-panel:focus-within::after {
+    .hero-corner-panel:focus-within::after,
+    .hero-corner-panel.is-expanded::after {
         transform: scaleY(1);
     }
 
@@ -418,14 +455,15 @@
         position: absolute;
         inset: 0;
         display: flex;
-        align-items: flex-end;
+        align-items: center;
+        justify-content: center;
         inline-size: 100%;
         block-size: 100%;
         padding: clamp(18px, 2vw, 32px);
         border: 0;
         background: transparent;
         color: var(--color-white);
-        cursor: pointer;
+        cursor: default;
         text-align: start;
     }
 
@@ -466,14 +504,15 @@
     }
 
     .hero-corner-panel:hover .hero-corner-panel__value,
-    .hero-corner-panel:focus-within .hero-corner-panel__value {
+    .hero-corner-panel:focus-within .hero-corner-panel__value,
+    .hero-corner-panel.is-expanded .hero-corner-panel__value {
         opacity: 1;
         transform: translateY(0);
     }
 
     .home-hero__inner {
         position: relative;
-        z-index: 2;
+        z-index: 4;
         width: min(100% - (var(--layout-gutter) * 2), var(--layout-wide));
         margin-inline: auto;
         padding-block: clamp(130px, 18vh, 220px) clamp(48px, 8vh, 92px);
@@ -1036,6 +1075,10 @@
         backdrop-filter: none;
     }
 
+    .public-site:not(.has-dark-hero) #main-content {
+        padding-block-start: 82px;
+    }
+
     .site-header__inner {
         grid-template-columns: minmax(0, 1fr) auto auto;
         gap: 10px 12px;
@@ -1141,6 +1184,20 @@
     .hero-corner-panel__value {
         opacity: 1;
         transform: none;
+    }
+
+    /* On mobile stacked panels, hover/touch interaction uses CSS :hover directly */
+    .hero-corners__nav-blocker {
+        display: none;
+    }
+
+    .hero-corner-panel__hover-zone {
+        display: none;
+    }
+
+    .hero-corner-panel__button {
+        align-items: flex-end;
+        cursor: pointer;
     }
 
     .home-hero__inner {

@@ -64,6 +64,7 @@
 @section('content')
     <section class="home-hero home-hero--corners" aria-labelledby="home-hero-title">
         <div class="hero-corners__backdrop">
+            <div class="hero-corners__nav-blocker" aria-hidden="true"></div>
             <ul class="hero-corners__panels" aria-label="{{ $locale === 'ar' ? 'زوايا جيلويل الخمس' : 'Five corners of Gilwell' }}">
                 @foreach ($heroCorners as $corner)
                     @php
@@ -72,7 +73,7 @@
                         $cornerSource = asset("images/hero-corners/{$corner['key']}.png");
                         $cornerOptimized = asset("images/hero-corners/optimized/{$corner['key']}.webp");
                     @endphp
-                    <li class="hero-corner-panel hero-corner-panel--{{ $corner['key'] }}" data-hero-corner="{{ $corner['key'] }}" style="--corner-color: {{ $corner['color'] }}; --corner-image-fallback: url('{{ $cornerSource }}'); --corner-image: image-set(url('{{ $cornerOptimized }}') type('image/webp'), url('{{ $cornerSource }}') type('image/png'));"><button class="hero-corner-panel__button" type="button" aria-label="{{ $cornerLabel }} - {{ $cornerCopy }}"><span class="hero-corner-panel__number">{{ $corner['number'] }}</span><span class="hero-corner-panel__value"><strong>{{ $cornerLabel }}</strong><span>{{ $cornerCopy }}</span></span></button></li>
+                    <li class="hero-corner-panel hero-corner-panel--{{ $corner['key'] }}" data-hero-corner="{{ $corner['key'] }}" style="--corner-color: {{ $corner['color'] }}; --corner-image-fallback: url('{{ $cornerSource }}'); --corner-image: image-set(url('{{ $cornerOptimized }}') type('image/webp'), url('{{ $cornerSource }}') type('image/png'));"><div class="hero-corner-panel__hover-zone" aria-hidden="true"></div><button class="hero-corner-panel__button" type="button" aria-label="{{ $cornerLabel }} - {{ $cornerCopy }}"><span class="hero-corner-panel__number">{{ $corner['number'] }}</span><span class="hero-corner-panel__value"><strong>{{ $cornerLabel }}</strong><span>{{ $cornerCopy }}</span></span></button></li>
                 @endforeach
             </ul>
         </div>

@@ -27,10 +27,10 @@
         @yield('preload')
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="public-site">
+    <body class="public-site{{ ' ' . trim($headerMode ?? '') }}">
         <a class="skip-link" href="#main-content">{{ $labels['skip'] }}</a>
 
-        <header class="site-header" data-site-header>
+        <header class="site-header{{ ($headerMode ?? '') !== 'has-dark-hero' ? ' is-scrolled' : '' }}" data-site-header>
             <div class="site-header__inner">
                 <a class="brand" href="{{ url("/{$locale}") }}" aria-label="{{ $siteName }}">
                     <img class="brand__logo brand__logo--transparent" src="{{ asset('images/gilwellsyria-logo-transparent.png') }}" alt="{{ $siteName }}">

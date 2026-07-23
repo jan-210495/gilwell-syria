@@ -142,10 +142,11 @@ $baseViewData = function (string $locale) use ($labelsFor): array {
     ];
 };
 
-$publicView = function (string $locale, string $view, array $data = []) use ($baseViewData) {
+$publicView = function (string $locale, string $view, array $data = [], string $headerMode = '') use ($baseViewData) {
     return view($view, [
         ...$baseViewData($locale),
         ...$data,
+        'headerMode' => $headerMode,
     ]);
 };
 
@@ -218,7 +219,7 @@ Route::prefix('{locale}')->group(function () use (
             'page' => $publishedPage('home'),
             'partners' => $orderedPartners()->take(4)->get(),
             'programs' => $orderedPrograms()->take(3)->get(),
-        ]);
+        ], 'has-dark-hero');
     });
 
     Route::get('/about', function (string $locale) use ($publicView, $publishedPage) {

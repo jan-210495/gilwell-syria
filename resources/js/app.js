@@ -37,8 +37,12 @@ if (siteHeader && menuToggle && menuPanel) {
         }
     });
 
+    const hasDarkHero = document.body.classList.contains('has-dark-hero');
+
     const updateHeaderState = () => {
-        siteHeader.classList.toggle('is-scrolled', window.scrollY > 24);
+        if (hasDarkHero) {
+            siteHeader.classList.toggle('is-scrolled', window.scrollY > 24);
+        }
     };
 
     setMenuOpen(false);
@@ -66,4 +70,34 @@ if (revealTargets.length > 0) {
 
         revealTargets.forEach((target) => revealObserver.observe(target));
     }
+}
+
+/* Hero corner panel expansion via hover zones (desktop only) */
+const hoverZones = document.querySelectorAll('.hero-corner-panel__hover-zone');
+
+if (hoverZones.length > 0 && !window.matchMedia('(max-width: 820px)').matches) {
+    hoverZones.forEach((zone) => {
+        const panel = zone.closest('.hero-corner-panel');
+
+        zone.addEventListener('mouseenter', () => {
+            panel.classList.add('is-expanded');
+        });
+
+        zone.addEventListener('mouseleave', () => {
+            panel.classList.remove('is-expanded');
+        });
+    });
+
+    /* Keyboard focus also toggles expansion */
+    const heroPanels = document.querySelectorAll('.hero-corner-panel');
+
+    heroPanels.forEach((panel) => {
+        panel.addEventListener('focusin', () => {
+            panel.classList.add('is-expanded');
+        });
+
+        panel.addEventListener('focusout', () => {
+            panel.classList.remove('is-expanded');
+        });
+    });
 }
