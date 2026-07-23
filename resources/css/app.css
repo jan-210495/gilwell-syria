@@ -415,24 +415,24 @@
     .hero-corners__curve {
         position: absolute;
         z-index: 5;
-        inset-block-start: 15%;
+        inset-block-start: 0%;
         inset-inline: 0;
         inline-size: 100%;
         block-size: 50%;
         pointer-events: none;
         opacity: 1;
         transition: opacity 520ms ease;
+        clip-path: inset(0 100% 0 0);
+        animation: reveal-curve 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
     }
 
-    .hero-corners__curve path {
-        stroke-dasharray: 1800;
-        stroke-dashoffset: 1800;
-        animation: draw-curve 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+    [dir="rtl"] .hero-corners__curve {
+        clip-path: inset(0 0 0 100%);
     }
 
-    @keyframes draw-curve {
+    @keyframes reveal-curve {
         to {
-            stroke-dashoffset: 0;
+            clip-path: inset(0 0% 0 0);
         }
     }
 
