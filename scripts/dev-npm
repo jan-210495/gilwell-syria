@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+docker run --rm \
+  --user "$(id -u):$(id -g)" \
+  --env COMPOSER_HOME=/tmp/composer \
+  --volume "$PWD:/app" \
+  --workdir /app \
+  gilwell-syria-php \
+  npm "$@"

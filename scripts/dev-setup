@@ -14,11 +14,27 @@ if grep -q '^DB_HOST=127.0.0.1' .env; then
     sed -i 's/^DB_HOST=127.0.0.1/DB_HOST=mysql/' .env
 fi
 
-# 3. Build and start everything (compose healthcheck waits for MySQL)
-echo "Starting MySQL + PHP (MySQL healthcheck will ensure it's ready)..."
+# 3. Build Docker images (includes Node.js now)
+echo "Building Docker images..."
+docker compose build
+
+# 4. Install composer dependencies
+echo "Installing PHP dependencies..."
+scripts/dev-composer install --no-interaction
+
+# 5. Install npm dependencies
+echo "Installing frontend dependencies..."
+scripts/dev-npm install
+
+# 6. Build frontend assets
+echo "Building frontend assets..."
+scripts/dev-npm run build
+
+# 7. Start everything (compose healthcheck waits for MySQL)
+echo "Starting MySQL + PHP..."
 docker compose up -d
 
-# 4. Wait for MySQL healthcheck to pass
+# 8. Wait for MySQL healthcheck to pass
 echo "Waiting for MySQL to be healthy..."
 MAX_WAIT=60
 WAITED=0
@@ -34,13 +50,13 @@ until docker compose ps mysql | grep -q "healthy" 2>/dev/null; do
 done
 echo "MySQL is healthy!"
 
-# 5. Generate APP_KEY if missing
+# 9. Generate APP_KEY if missing
 if grep -q '^APP_KEY=$' .env || ! grep -q '^APP_KEY=' .env; then
     echo "Generating APP_KEY..."
     docker compose exec php php artisan key:generate --ansi
 fi
 
-# 6. Run migrations + seed the database
+# 10. Run migrations + seed the database
 echo "Running migrations & seeding database..."
 docker compose exec php php artisan migrate:fresh --seed --force
 
