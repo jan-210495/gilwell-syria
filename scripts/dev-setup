@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "=== GilwellSyria Dev Setup ==="
+
+# 1. Build Docker images
+echo "Building Docker images..."
+docker compose build
+
+# 2. Start MySQL first (PHP needs it)
+echo "Starting MySQL..."
+docker compose up -d mysql
+
+# 3. Wait for MySQL to be ready
+echo "Waiting for MySQL to accept connections..."
+MAX_WAIT=30
+WAITED=0
+until docker compose exec mysql mysqladmin ping -h localhost -u root --password=root --silent 2>/dev/null; do
+    WAITED=$((WAITED + 1))
+    if [ $WAITED -ge $MAX_WAIT ]; then
+        echo "MySQL did not become ready in ${MAX_WAIT}s. Check logs:"
+        docker compose logs mysql
+        exit 1
+    fi
+    sleep 1
+done
+echo "MySQL is ready!"
+
+# 4. Ensure .env exists
+if [ ! -f .env ]; then
+    cp .env.example .env
+fi
+
+# 5. Generate APP_KEY if missing
+if grep -q '^APP_KEY=$' .env || ! grep -q '^APP_KEY=' .env; then
+    echo "Generating APP_KEY..."
+    docker compose run --rm php php artisan key:generate --ansi
+fi
+
+# 6. Set DB_HOST to the Docker network name (mysql container)
+if grep -q '^DB_HOST=127.0.0.1' .env; then
+    echo "Updating DB_HOST from 127.0.0.1 to mysql (Docker network)..."
+    sed -i 's/^DB_HOST=127.0.0.1/DB_HOST=mysql/' .env
+fi
+
+# 7. Run migrations
+echo "Running migrations..."
+docker compose run --rm php php artisan migrate --force
+
+# 8. Start PHP server
+echo "Starting full stack (MySQL + PHP)..."
+docker compose up
