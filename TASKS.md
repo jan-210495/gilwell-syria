@@ -17,7 +17,8 @@ The Mastermind owns this file. Other agents may update only their assigned task 
 
 | Task ID | Status | Owner | Title | Files / Area | Active Artifacts | Next Action |
 | --- | --- | --- | --- | --- | --- | --- |
-| none | accepted | Mastermind | No active task | none | none | Create a task brief when work begins |
+| task-5-durable-documentation-and-final-verification | accepted | QA Reviewer | Durable documentation and final verification | docs/design, coordination ledgers | .superpowers/sdd/task-5-report.md | None — task complete |
+| navbar-hero-interaction-fix | review | Front-End Builder → QA Reviewer | Navbar visibility and hero interaction zone fixes | resources/css, resources/js, resources/views, routes | work/tasks/navbar-hero-interaction-fix/task-brief.md, work/tasks/navbar-hero-interaction-fix/frontend-handoff.md, work/tasks/navbar-hero-interaction-fix/qa-report.md | Mastermind decides acceptance after Human Operator visual verification |
 
 ## Per-Task Artifacts
 

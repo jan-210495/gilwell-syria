@@ -8,11 +8,18 @@ external action.
 
 | Agent | Current Task | Status | Current Focus | Last Update |
 | --- | --- | --- | --- | --- |
-| Mastermind | v1-public-visual-reset | reviewing | Implementation plan ready; waiting for execution approach selection | 2026-07-22 10:31 |
-| Designer | v1-brand-design | done | Brand system and Stitch prompt drafts ready for Mastermind review | 2026-07-21 23:16 |
-| Front-End Builder | v1-public-frontend | done | Mastermind cleanup refinement ready for review | 2026-07-21 23:53 |
+| Mastermind | navbar-hero-interaction-fix | reviewing | QA report received; awaiting Human Operator visual verification for acceptance | 2026-07-23 |
+| Designer | task-1-hero-asset-and-design-guidance | done | Review fixes committed for exact visual reset layout constraints | 2026-07-22 10:53 |
+| Front-End Builder | task-4-listing-pages-shared-partials-and-contact-polish | done | Task 4 markup hooks committed; public visual regression suite passed | 2026-07-22 11:47 |
 | Back-End Builder | v1-cms-backend | done | QA backend authorization, publish normalization, and seed refinements ready for review | 2026-07-22 00:09 |
-| QA Reviewer | v1-site-foundation | done | Follow-up QA confirmed prior blockers fixed with no new blocking regressions | 2026-07-22 00:18 |
+| QA Reviewer | task-5-durable-documentation-and-final-verification | done | Corrected post-prerequisite final verification and committed evidence complete | 2026-07-22 20:31 |
+| Arena Agent (Front-End Builder) | navbar-hero-interaction-fix | done | Navbar visibility, hero hover zones, and nav underline fixes committed | 2026-07-23 |
+| Arena Agent (QA Reviewer) | navbar-hero-interaction-fix | done | QA review complete; recommend accept-with-visual-confirmation | 2026-07-23 |
+| Visual Fix Worker | task-5-visual-framing-fix | done | CSS framing fix committed after red-green, build, and visual recapture | 2026-07-22 12:30 |
+| Final Review Fix Worker | final-review-visual-fixes | done | Four final-review findings fixed; full tests, build, scans, and visual smoke passed | 2026-07-22 13:44 |
+| Asset Pipeline Worker | task-1-asset-pipeline | done | Mastermind accepted the clean re-review of optimized WebP derivatives and transparent logo delivery | 2026-07-22 20:31 |
+| Front-End Builder | task-4-tactile-motion-and-scroll-reveal | done | Tactile motion and scroll-reveal contracts verified; scoped commit ready for Mastermind review | 2026-07-22 20:30 |
+| Five-Corner Hero Worker | task-3-five-corner-cinematic-home-hero | done | Review remediation complete: panel controls exposed to assistive technology and visible keyboard focus verified | 2026-07-22 20:20 |
 
 ## Status Values
 

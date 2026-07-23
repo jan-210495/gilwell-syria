@@ -8,6 +8,21 @@ Record decisions that affect product behavior, design direction, API contracts, 
 YYYY-MM-DD | Decision ID | Owner | Scope | Decision | Rationale | Rejected Options | Impact
 ```
 
+## Final Verification Evidence
+
+2026-07-22 20:31: after the recorded completion/review of Tasks 1-4, final
+verification passed: `scripts/dev-php artisan test` 55 tests/594 assertions;
+`npm run build` with only the optional `fontaine` warning; route cache and clear;
+fresh seed with the local admin/editor users and `leadership-training`; `/` 302
+to `/en`, `/en` and `/ar` required hooks with no public donation/form matches,
+`/fr` 404, and `/admin/login` fields. Screenshot evidence is
+`/tmp/gilwell-identity-en-1440.png` (1440x900),
+`/tmp/gilwell-identity-en-1920.png` (1920x1080),
+`/tmp/gilwell-identity-en-390.png` (390x844), and
+`/tmp/gilwell-identity-ar-390.png` (390x844). Forbidden-pattern matches remain
+limited to negative tests, historical ledgers, or rejecting docs; no public
+mobile `overflow-x: auto`; `git diff --check` passed.
+
 ## Accepted Decisions
 
 ```text
@@ -22,4 +37,8 @@ YYYY-MM-DD | Decision ID | Owner | Scope | Decision | Rationale | Rejected Optio
 2026-07-21 | D-009 | Front-End Builder | Public frontend architecture | Implement the v1 public site as locale-prefixed Blade routes that query CMS models through published scope and select bilingual fields at render time | This fits frontend ownership boundaries, uses the committed CMS schema directly, and keeps v1 public behavior explicit and testable | New app controllers, translation tables, hard-coded public content, unprefixed public routes | Public pages live under /en and /ar, invalid locales 404, and public views only receive published CMS records
 2026-07-22 | D-010 | Back-End Builder | CMS admin authorization | Enforce CMS admin CRUD through a shared Filament CMS resource base and enforce publish timestamp/status normalization in the publishable model trait | Filament UI visibility alone is not sufficient; centralized Resource can* methods and model save hooks protect direct admin actions and keep publish state consistent | UI-only action visibility, per-model policy boilerplate | Admins can manage all CMS records; editors can create and edit draft publishable records, save only draft or pending_review status, edit SiteSetting, and cannot delete
 2026-07-22 | D-011 | Mastermind | Public visual reset | Redesign the public site around a very-wide editorial layout, documentary-style hero image, denser desktop grids, and premium donor/partner credibility | The first implementation is technically sound but visually weak, narrow on wide screens, and lacks a strong hero | Keep current 1180px layout, logo-box hero, basic equal card grid, donation/form-oriented public flows | Frontend implementation plan should update public CSS/views, design docs, Stitch prompts, and one generated hero image while preserving CMS/backend behavior
+2026-07-22 | D-012 | Mastermind | Public visual reset acceptance | Accept the visual reset branch after final verification and a focused desktop framing fix | Final checks passed for PHP tests, production build, route cache, seeded content, locale smoke checks, active public forbidden-pattern scans, and visual evidence at 1920 desktop, 1440 desktop, and 390 Arabic mobile | Accepting the first Task 5 screenshot with hidden credibility strip | The public visual reset can proceed to whole-branch review and integration choice
+2026-07-22 | D-013 | Mastermind | Public identity motion revision | Replace the generic single-photo hero with a five-corner cinematic identity hero, add real hover/focus/press motion, remove boxed logo treatment, and replace mobile horizontal nav with a burger menu | The stable visual reset is technically good but still feels institutional, static, and generic; the user approved using the Arena concept as inspiration without copying it | Keep the current single-photo hero, horizontal mobile nav, static buttons/cards, boxed logo header | Next implementation plan should use the five generated scout-panel assets in public/images/hero-corners and stay in Laravel Blade/CSS/vanilla JS
+2026-07-22 | D-014 | Mastermind | Public identity motion implementation | Accept the five-corner identity hero, transparent brand treatment, accessible burger menu, and tactile motion system as the next public visual baseline | Final verification confirmed the site no longer feels like a static government page and preserves tests, build, routing, bilingual behavior, and no donation/form boundaries | Keep single-photo hero, boxed logo header, horizontal mobile nav, static buttons/cards | Future public design work should build on the five-corner hero and motion tokens rather than reintroducing static CMS-scaffold styling
+2026-07-23 | D-015 | Mastermind | Navbar and hero interaction | Header should be opaque (ink text on paper) on non-home pages and transparent (white text) only on the homepage with dark hero; hero panels should expand only from a middle-third hover zone with value text centered in the panel; logo hover must not trigger panel expansion | User inspection found invisible header on non-home pages, logo-panel hover conflict, and panel text hidden behind hero content | Keep transparent header everywhere, CSS-only hover on full panel area, bottom-aligned panel text | Frontend should use has-dark-hero body class for page-specific header state and JS-controlled hover zones for panel boundaries
 ```
