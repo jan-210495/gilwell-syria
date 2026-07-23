@@ -12,6 +12,11 @@ services:
       MYSQL_PASSWORD: secret
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h localhost -u root --password=root --silent
+      interval: 2s
+      timeout: 5s
+      retries: 30
 
   php:
     build: docker/php
@@ -22,7 +27,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     command: php artisan serve --host=0.0.0.0 --port=8000
 
 volumes:
