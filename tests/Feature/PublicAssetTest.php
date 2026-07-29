@@ -7,6 +7,50 @@ use Tests\TestCase;
 
 class PublicAssetTest extends TestCase
 {
+    public function test_favicon_is_a_non_empty_three_frame_rgba_ico(): void
+    {
+        $favicon = public_path('favicon.ico');
+
+        $this->assertFileExists($favicon);
+        $this->assertGreaterThan(0, filesize($favicon));
+        $this->assertContains(mime_content_type($favicon), [
+            'image/vnd.microsoft.icon',
+            'image/x-icon',
+        ]);
+
+        $contents = file_get_contents($favicon);
+
+        $this->assertNotFalse($contents);
+        $this->assertGreaterThanOrEqual(54, strlen($contents));
+
+        $header = unpack('vreserved/vtype/vcount', substr($contents, 0, 6));
+
+        $this->assertSame(0, $header['reserved']);
+        $this->assertSame(1, $header['type']);
+        $this->assertSame(3, $header['count']);
+
+        $frames = [];
+
+        for ($index = 0; $index < $header['count']; $index++) {
+            $entry = unpack(
+                'Cwidth/Cheight/Ccolor_count/Creserved/vplanes/vbits/Vbytes/Voffset',
+                substr($contents, 6 + ($index * 16), 16),
+            );
+
+            $this->assertSame(0, $entry['color_count']);
+            $this->assertSame(0, $entry['reserved']);
+            $this->assertSame(1, $entry['planes']);
+            $this->assertSame(32, $entry['bits']);
+            $this->assertGreaterThan(0, $entry['bytes']);
+            $this->assertGreaterThanOrEqual(54, $entry['offset']);
+            $this->assertLessThanOrEqual(strlen($contents), $entry['offset'] + $entry['bytes']);
+
+            $frames[] = [$entry['width'], $entry['height']];
+        }
+
+        $this->assertSame([[16, 16], [32, 32], [48, 48]], $frames);
+    }
+
     /**
      * @return array<string, array{0: string}>
      */

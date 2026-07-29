@@ -76,13 +76,17 @@ class PublicVisualCssTest extends TestCase
         $this->assertStringContainsString('background-image: var(--corner-image-fallback);', $panel);
         $this->assertStringContainsString('background-image: var(--corner-image);', $panel);
 
-        $active = $this->block($css, '.hero-corner-panel:hover, .hero-corner-panel:focus-within');
+        $hoverZone = $this->block($css, '.hero-corner-panel__hover-zone');
+        $this->assertStringContainsString('inset-block-start: 24%;', $hoverZone);
+        $this->assertStringContainsString('inset-block-end: 39%;', $hoverZone);
+
+        $active = $this->block($css, '.hero-corner-panel:focus-within, .hero-corner-panel.is-expanded');
         $this->assertStringContainsString('flex-grow: 2.35;', $active);
 
         $value = $this->block($css, '.hero-corner-panel__value');
         $this->assertStringContainsString('opacity: 0;', $value);
 
-        $activeValue = $this->block($css, '.hero-corner-panel:hover .hero-corner-panel__value, .hero-corner-panel:focus-within .hero-corner-panel__value');
+        $activeValue = $this->block($css, '.hero-corner-panel:focus-within .hero-corner-panel__value, .hero-corner-panel.is-expanded .hero-corner-panel__value');
         $this->assertStringContainsString('opacity: 1;', $activeValue);
 
         $mobile = $this->block($css, '@media (max-width: 820px)');
@@ -176,6 +180,17 @@ class PublicVisualCssTest extends TestCase
 
         $brandText = $this->block($mobile, '.brand__text');
         $this->assertStringContainsString('display: none;', $brandText);
+    }
+
+    public function test_desktop_header_reserves_the_frozen_brand_footprint_across_scroll_states(): void
+    {
+        $desktop = $this->block($this->normalizedCss(), '@media (min-width: 1101px)');
+        $brand = $this->block($desktop, '.brand {');
+        $brandText = $this->block($desktop, '.brand__text');
+
+        $this->assertStringContainsString('inline-size: 250px;', $brand);
+        $this->assertStringContainsString('overflow: visible;', $brandText);
+        $this->assertStringNotContainsString('inline-size: 208px;', $desktop);
     }
 
     public function test_header_uses_overlay_brand_and_mobile_burger_panel(): void

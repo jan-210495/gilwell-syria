@@ -8,11 +8,11 @@ external action.
 
 | Agent | Current Task | Status | Current Focus | Last Update |
 | --- | --- | --- | --- | --- |
-| Mastermind | task-5-durable-documentation-and-final-verification | done | Task 5 accepted after local re-review and fresh final verification | 2026-07-23 18:45 |
-| Designer | task-1-hero-asset-and-design-guidance | done | Review fixes committed for exact visual reset layout constraints | 2026-07-22 10:53 |
-| Front-End Builder | task-4-listing-pages-shared-partials-and-contact-polish | done | Task 4 markup hooks committed; public visual regression suite passed | 2026-07-22 11:47 |
+| Mastermind | public-favicon-deployment | working | Local QA accepted; publishing verified final preview and refreshing TrueNAS from Git | 2026-07-29 21:00 +03 |
+| Designer | public-favicon-deployment | done | Favicon derivative, layout metadata, cache, and visual QA contract ready for Mastermind | 2026-07-29 20:35 +03 |
+| Front-End Builder | public-favicon-deployment | done | Verified favicon implementation and complete handoff returned to Mastermind for independent QA | 2026-07-29 20:44 +03 |
 | Back-End Builder | v1-cms-backend | done | QA backend authorization, publish normalization, and seed refinements ready for review | 2026-07-22 00:09 |
-| QA Reviewer | task-5-durable-documentation-and-final-verification | done | Corrected post-prerequisite final verification and committed evidence complete | 2026-07-22 20:31 |
+| QA Reviewer | public-favicon-deployment | done | Independent QA passed; accept recommended with Firefox/deployment follow-up limits documented | 2026-07-29 20:57 +03 |
 | Visual Fix Worker | task-5-visual-framing-fix | done | CSS framing fix committed after red-green, build, and visual recapture | 2026-07-22 12:30 |
 | Final Review Fix Worker | final-review-visual-fixes | done | Four final-review findings fixed; full tests, build, scans, and visual smoke passed | 2026-07-22 13:44 |
 | Asset Pipeline Worker | task-1-asset-pipeline | done | Mastermind accepted the clean re-review of optimized WebP derivatives and transparent logo delivery | 2026-07-22 20:31 |

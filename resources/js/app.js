@@ -38,12 +38,70 @@ if (siteHeader && menuToggle && menuPanel) {
     });
 
     const updateHeaderState = () => {
-        siteHeader.classList.toggle('is-scrolled', window.scrollY > 24);
+        const readableFromFirstPaint = siteHeader.classList.contains('site-header--readable');
+
+        siteHeader.classList.toggle('is-scrolled', readableFromFirstPaint || window.scrollY > 24);
     };
 
     setMenuOpen(false);
     updateHeaderState();
     window.addEventListener('scroll', updateHeaderState, { passive: true });
+}
+
+const heroCorners = document.querySelector('.home-hero--corners');
+
+if (heroCorners) {
+    const cornerPanels = [...heroCorners.querySelectorAll('.hero-corner-panel')];
+    const hoverZones = [...heroCorners.querySelectorAll('.hero-corner-panel__hover-zone')];
+
+    const clearExpandedPanel = () => {
+        heroCorners.classList.remove('is-exploring-panels');
+        cornerPanels.forEach((panel) => panel.classList.remove('is-expanded'));
+    };
+
+    const expandPanel = (panel, className = 'is-exploring-panels') => {
+        if (!panel) {
+            clearExpandedPanel();
+            return;
+        }
+
+        heroCorners.classList.add(className);
+        cornerPanels.forEach((candidate) => {
+            candidate.classList.toggle('is-expanded', candidate === panel);
+        });
+    };
+
+    hoverZones.forEach((zone) => {
+        const panel = zone.closest('.hero-corner-panel');
+
+        zone.addEventListener('pointerenter', () => expandPanel(panel));
+        zone.addEventListener('pointerleave', () => {
+            if (!heroCorners.classList.contains('has-panel-focus')) {
+                clearExpandedPanel();
+            }
+        });
+    });
+
+    cornerPanels.forEach((panel) => {
+        panel.addEventListener('focusin', () => {
+            heroCorners.classList.add('has-panel-focus');
+            expandPanel(panel, 'has-panel-focus');
+        });
+
+        panel.addEventListener('focusout', () => {
+            window.setTimeout(() => {
+                const panelStillFocused = cornerPanels.some((candidate) => candidate.contains(document.activeElement));
+
+                if (!panelStillFocused) {
+                    heroCorners.classList.remove('has-panel-focus');
+
+                    if (!heroCorners.matches(':hover')) {
+                        clearExpandedPanel();
+                    }
+                }
+            }, 0);
+        });
+    });
 }
 
 const revealTargets = document.querySelectorAll('[data-reveal]');

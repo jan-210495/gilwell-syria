@@ -6,6 +6,8 @@
     $segments[0] = $otherLocale;
     $languageUrl = url('/'.implode('/', $segments));
     $languageLabel = $locale === 'ar' ? 'English' : 'العربية';
+    $languageAriaLabel = $locale === 'ar' ? 'Switch language to English' : 'تغيير اللغة إلى العربية';
+    $isHomePage = request()->is($locale);
     $navItems = [
         ['href' => url("/{$locale}"), 'label' => $labels['home'], 'match' => "{$locale}"],
         ['href' => url("/{$locale}/about"), 'label' => $labels['about'], 'match' => "{$locale}/about"],
@@ -25,12 +27,13 @@
         <title>@hasSection('title')@yield('title') | {{ $siteName }}@else{{ $siteName }}@endif</title>
         <meta name="description" content="@yield('description', $tagline ?: $siteName)">
         @yield('preload')
+        <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="{{ asset('favicon.ico') }}?v=20260729">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="public-site">
         <a class="skip-link" href="#main-content">{{ $labels['skip'] }}</a>
 
-        <header class="site-header" data-site-header>
+        <header class="site-header {{ $isHomePage ? 'site-header--home' : 'site-header--readable is-scrolled' }}" data-site-header>
             <div class="site-header__inner">
                 <a class="brand" href="{{ url("/{$locale}") }}" aria-label="{{ $siteName }}">
                     <img class="brand__logo brand__logo--transparent" src="{{ asset('images/gilwellsyria-logo-transparent.png') }}" alt="{{ $siteName }}">
@@ -58,8 +61,14 @@
                 </nav>
 
                 <div class="site-header__actions">
-                    <a class="language-switch" href="{{ $languageUrl }}" hreflang="{{ $otherLocale }}" data-menu-close>{{ $languageLabel }}</a>
-                    <a class="button button--primary" href="{{ url("/{$locale}/contact") }}" data-menu-close>{{ $labels['contact'] }}</a>
+                    <a class="language-switch language-switch--header" href="{{ $languageUrl }}" hreflang="{{ $otherLocale }}" aria-label="{{ $languageAriaLabel }}" data-menu-close>
+                        <svg class="language-switch__icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                            <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
+                            <path d="M3.6 9h16.8M3.6 15h16.8M12 3c2 2.2 3 5.2 3 9s-1 6.8-3 9M12 3c-2 2.2-3 5.2-3 9s1 6.8 3 9"></path>
+                        </svg>
+                        <span>{{ $languageLabel }}</span>
+                    </a>
+                    <a class="button button--primary site-header__contact" href="{{ url("/{$locale}/contact") }}" data-menu-close>{{ $labels['contact'] }}</a>
                 </div>
             </div>
         </header>
@@ -95,6 +104,13 @@
                         <a href="tel:{{ preg_replace('/\s+/', '', $settings->contact_phone) }}">{{ $settings->contact_phone }}</a>
                     @endif
                     <a href="{{ url("/{$locale}/contact") }}">{{ $labels['partner_with_us'] }}</a>
+                    <a class="language-switch language-switch--footer" href="{{ $languageUrl }}" hreflang="{{ $otherLocale }}" aria-label="{{ $languageAriaLabel }}">
+                        <svg class="language-switch__icon" aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                            <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
+                            <path d="M3.6 9h16.8M3.6 15h16.8M12 3c2 2.2 3 5.2 3 9s-1 6.8-3 9M12 3c-2 2.2-3 5.2-3 9s1 6.8 3 9"></path>
+                        </svg>
+                        <span>{{ $languageLabel }}</span>
+                    </a>
                 </div>
             </div>
         </footer>

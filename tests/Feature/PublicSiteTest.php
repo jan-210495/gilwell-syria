@@ -151,6 +151,28 @@ class PublicSiteTest extends TestCase
             ->assertSee('جيلويل سوريا');
     }
 
+    public function test_public_locales_render_one_versioned_favicon_link_before_vite_assets(): void
+    {
+        $this->createMainSettings();
+
+        $faviconLink = '<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="http://localhost/favicon.ico?v=20260729">';
+
+        foreach (['/en', '/ar'] as $uri) {
+            $html = $this->get($uri)
+                ->assertOk()
+                ->assertSee($faviconLink, false)
+                ->getContent();
+
+            $faviconPosition = strpos($html, $faviconLink);
+            $vitePosition = strpos($html, '<link rel="stylesheet"');
+
+            $this->assertSame(1, substr_count($html, $faviconLink));
+            $this->assertNotFalse($faviconPosition);
+            $this->assertNotFalse($vitePosition);
+            $this->assertLessThan($vitePosition, $faviconPosition);
+        }
+    }
+
     public function test_burger_panel_visibility_is_synchronized_with_the_mobile_breakpoint(): void
     {
         $this->seed(DatabaseSeeder::class);

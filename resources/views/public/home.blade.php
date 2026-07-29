@@ -72,14 +72,13 @@
                         $cornerSource = asset("images/hero-corners/{$corner['key']}.png");
                         $cornerOptimized = asset("images/hero-corners/optimized/{$corner['key']}.webp");
                     @endphp
-                    <li class="hero-corner-panel hero-corner-panel--{{ $corner['key'] }}" data-hero-corner="{{ $corner['key'] }}" style="--corner-color: {{ $corner['color'] }}; --corner-image-fallback: url('{{ $cornerSource }}'); --corner-image: image-set(url('{{ $cornerOptimized }}') type('image/webp'), url('{{ $cornerSource }}') type('image/png'));"><button class="hero-corner-panel__button" type="button" aria-label="{{ $cornerLabel }} - {{ $cornerCopy }}"><span class="hero-corner-panel__number">{{ $corner['number'] }}</span><span class="hero-corner-panel__value"><strong>{{ $cornerLabel }}</strong><span>{{ $cornerCopy }}</span></span></button></li>
+                    <li class="hero-corner-panel hero-corner-panel--{{ $corner['key'] }}" data-hero-corner="{{ $corner['key'] }}" style="--corner-color: {{ $corner['color'] }}; --corner-image-fallback: url('{{ $cornerSource }}'); --corner-image: image-set(url('{{ $cornerOptimized }}') type('image/webp'), url('{{ $cornerSource }}') type('image/png'));"><div class="hero-corner-panel__hover-zone" aria-hidden="true"></div><button class="hero-corner-panel__button" type="button" aria-label="{{ $cornerLabel }} - {{ $cornerCopy }}"><span class="hero-corner-panel__value"><strong>{{ $cornerLabel }}</strong><span>{{ $cornerCopy }}</span></span></button></li>
                 @endforeach
             </ul>
         </div>
 
         <div class="home-hero__inner">
             <div class="home-hero__content" data-reveal>
-                <p class="eyebrow">{{ $labels['home'] }}</p>
                 <h1 id="home-hero-title">{{ $heroTitle }}</h1>
                 @if ($heroSummary !== '')
                     <p class="lead">{{ $heroSummary }}</p>
