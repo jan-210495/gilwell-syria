@@ -17,7 +17,7 @@ The Mastermind owns this file. Other agents may update only their assigned task 
 
 | Task ID | Status | Owner | Title | Files / Area | Active Artifacts | Next Action |
 | --- | --- | --- | --- | --- | --- | --- |
-| public-favicon-deployment | in_progress | Mastermind | Add and deploy the GilwellSyria browser-tab icon | Public favicon, shared public layout, focused tests, TrueNAS deployment | `work/tasks/public-favicon-deployment/task-brief.md`, `work/tasks/public-favicon-deployment/design-brief.md`, `work/tasks/public-favicon-deployment/frontend-handoff.md`, `work/tasks/public-favicon-deployment/qa-report.md` | Commit and push the verified final preview, then refresh and verify the TrueNAS deployment |
+| public-favicon-deployment | accepted | Mastermind | Add and deploy the GilwellSyria browser-tab icon | Public favicon, shared public layout, focused tests, TrueNAS deployment | `work/tasks/public-favicon-deployment/task-brief.md`, `work/tasks/public-favicon-deployment/design-brief.md`, `work/tasks/public-favicon-deployment/frontend-handoff.md`, `work/tasks/public-favicon-deployment/qa-report.md` | Completed; refresh browser favicon cache if an existing tab still shows the old generic icon |
 
 ## Per-Task Artifacts
 

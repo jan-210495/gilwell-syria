@@ -97,12 +97,13 @@ decision.
 Only the Mastermind may complete this section. Record the task outcome in
 `TASKS.md` and any durable decision in `DECISIONS.md`.
 
-- Decision: Accept for publication and deployment
+- Decision: Accepted and deployed
 - Decision Date: 2026-07-29
 - Decision Notes: Independent QA found no implementation issues. Fresh
   Mastermind verification passed 58 tests/657 assertions, the production build,
-  exact ICO metadata/hash, and `git diff --check`. Final task acceptance remains
-  pending the required Git publication and deployed LAN/public checks.
+  exact ICO metadata/hash, and `git diff --check`. Commit `5b88bfe` was pushed,
+  pulled into the persistent TrueNAS checkout, synced, redeployed through
+  middleware, and verified over LAN and public HTTPS.
 
 ## Watch Mode
 

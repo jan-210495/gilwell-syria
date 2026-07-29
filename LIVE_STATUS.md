@@ -8,7 +8,7 @@ external action.
 
 | Agent | Current Task | Status | Current Focus | Last Update |
 | --- | --- | --- | --- | --- |
-| Mastermind | public-favicon-deployment | working | Local QA accepted; publishing verified final preview and refreshing TrueNAS from Git | 2026-07-29 21:00 +03 |
+| Mastermind | public-favicon-deployment | done | Branded favicon accepted, pushed, pulled to TrueNAS, redeployed, and verified over LAN/public HTTPS | 2026-07-29 21:07 +03 |
 | Designer | public-favicon-deployment | done | Favicon derivative, layout metadata, cache, and visual QA contract ready for Mastermind | 2026-07-29 20:35 +03 |
 | Front-End Builder | public-favicon-deployment | done | Verified favicon implementation and complete handoff returned to Mastermind for independent QA | 2026-07-29 20:44 +03 |
 | Back-End Builder | v1-cms-backend | done | QA backend authorization, publish normalization, and seed refinements ready for review | 2026-07-22 00:09 |
